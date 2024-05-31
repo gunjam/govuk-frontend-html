@@ -1,0 +1,22 @@
+{
+  "name": "govuk-frontend-html",
+  "version": "0.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "borp --coverage",
+    "lint": "biome check ."
+  },
+  "author": "gunjam@gmail.com",
+  "license": "MIT",
+  "description": "govuk-frontend as plain JS functions that return HTML strings",
+  "devDependencies": {
+    "@biomejs/biome": "^1.7.3",
+    "borp": "^0.14.0",
+    "cheerio": "^1.0.0-rc.12",
+    "govuk-frontend": "^5.4.0"
+  },
+  "dependencies": {
+    "ghtml": "^1.5.2"
+  }
+}
