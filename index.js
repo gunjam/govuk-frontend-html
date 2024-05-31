@@ -1,5 +1,3 @@
-import govukButton from "./components/button/button"
+import govukButton from './components/button/button'
 
-export {
-  govukButton
-}
+export { govukButton }
