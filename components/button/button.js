@@ -48,22 +48,20 @@ export default function govukButton(params) {
   // Define common attributes we can use for both button and input types
   const buttonAttributes = html`!${params.name ? html` name="${params.name}"` : ''}!${params.disabled ? ' disabled aria-disabled="true"' : ''}!${params.preventDoubleClick !== undefined ? html` data-prevent-double-click="${params.preventDoubleClick}"` : ''}`
 
-  let button
-
-  // Actually create a button... or a link!
   if (element === 'a') {
-    button = html`<a href="${params.href || '#'}" role="button" draggable="false" !${commonAttributes}>
-  !${params.html ?? ''}${!params.html ? params.text ?? '' : ''}!${params.isStartButton ? START_ICON : ''}
+    return html`<a href="${params.href || '#'}" role="button" draggable="false" !${commonAttributes}>
+  !${params.html ?? html`${params.text}`}!${params.isStartButton ? START_ICON : ''}
 </a>`
-  } else if (element === 'button') {
-    button = html`<button!${params.value ? html` value="${params.value}"` : ''} type="${params.type ?? 'submit'}"!${buttonAttributes}!${commonAttributes}>
-  !${params.html}${!params.html ? params.text ?? '' : ''}!${params.isStartButton ? START_ICON : ''}
-</button>`
-  } else if (element === 'input') {
-    button = html`<input value="${params.text}" type="${params.type ?? 'submit'}" !${buttonAttributes} !${commonAttributes}>`
   }
 
-  return button
+  if (element === 'button') {
+    return html`<button!${params.value ? html` value="${params.value}"` : ''} type="${params.type ?? 'submit'}"!${buttonAttributes}!${commonAttributes}>
+  !${params.html ?? html`${params.text}`}!${params.isStartButton ? START_ICON : ''}
+</button>`
+  }
+
+  // Must be input
+  return html`<input value="${params.text}" type="${params.type ?? 'submit'}" !${buttonAttributes} !${commonAttributes}>`
 }
 
 /**
