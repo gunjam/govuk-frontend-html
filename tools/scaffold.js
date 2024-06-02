@@ -126,7 +126,7 @@ async function getComponentJson(component, type) {
  */
 function errorMsg(msg, list) {
   const errorTxt = styleText(['red', 'bold'], '[Error]')
-  const listTxt = styleText('yellow', `"${list.join('"\n "')}"`)
+  const listTxt = list.map((i) => styleText('yellow', `"${i}"`)).join('\n ')
   const msgTxt = styleText('bold', msg)
   return `${errorTxt} ${msgTxt} \n ${listTxt}\n`
 }
