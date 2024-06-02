@@ -3,7 +3,12 @@ import { join } from 'node:path'
 import * as cheerio from 'cheerio'
 
 export async function getExamples(component) {
-  const path = join(import.meta.dirname, '../node_modules/govuk-frontend/dist/govuk/components/', component, 'fixtures.json')
+  const path = join(
+    import.meta.dirname,
+    '../node_modules/govuk-frontend/dist/govuk/components/',
+    component,
+    'fixtures.json'
+  )
 
   const { fixtures } = JSON.parse(await readFile(path, { encoding: 'utf8' }))
 
