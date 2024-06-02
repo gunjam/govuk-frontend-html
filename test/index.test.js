@@ -8,6 +8,11 @@ describe('index.js', () => {
     deepEqual(module.govukButton, govukButton.default)
   })
 
+  it('exports govukDetails()', async () => {
+    const govukDetails = await import('../components/details/details.js')
+    deepEqual(module.govukDetails, govukDetails.default)
+  })
+
   it('exports govukHint()', async () => {
     const govukHint = await import('../components/hint/hint.js')
     deepEqual(module.govukHint, govukHint.default)
@@ -16,5 +21,10 @@ describe('index.js', () => {
   it('exports govukLabel()', async () => {
     const govukLabel = await import('../components/label/label.js')
     deepEqual(module.govukLabel, govukLabel.default)
+  })
+
+  it('exports govukWarningText()', async () => {
+    const govukWarningText = await import('../components/warning-text/warning-text.js')
+    deepEqual(module.govukWarningText, govukWarningText.default)
   })
 })
