@@ -45,14 +45,14 @@ export default function govukButton(params) {
   // Define common attributes that we can use across all element types
   const commonAttributes = html` class="${classNames}" data-module="govuk-button"!${govukAttributes(params.attributes)}!${params.id ? html` id="${params.id}"` : ''}`
 
-  // Define common attributes we can use for both button and input types
-  const buttonAttributes = html`!${params.name ? html` name="${params.name}"` : ''}!${params.disabled ? ' disabled aria-disabled="true"' : ''}!${params.preventDoubleClick !== undefined ? html` data-prevent-double-click="${params.preventDoubleClick}"` : ''}`
-
   if (element === 'a') {
     return html`<a href="${params.href || '#'}" role="button" draggable="false" !${commonAttributes}>
   !${params.html ?? html`${params.text}`}!${params.isStartButton ? START_ICON : ''}
 </a>`
   }
+
+  // Define common attributes we can use for both button and input types
+  const buttonAttributes = html`!${params.name ? html` name="${params.name}"` : ''}!${params.disabled ? ' disabled aria-disabled="true"' : ''}!${params.preventDoubleClick !== undefined ? html` data-prevent-double-click="${params.preventDoubleClick}"` : ''}`
 
   if (element === 'button') {
     return html`<button!${params.value ? html` value="${params.value}"` : ''} type="${params.type ?? 'submit'}"!${buttonAttributes}!${commonAttributes}>
