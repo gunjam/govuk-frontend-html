@@ -98,9 +98,9 @@ export default function govukAttributes(attributes) {
       typeof value === 'object'
         ? value
         : {
-          value,
-          optional: false
-        }
+            value,
+            optional: false
+          }
 
     // Output ` name` only (no value) for boolean attributes
     if (options.optional === true && options.value === true) {
