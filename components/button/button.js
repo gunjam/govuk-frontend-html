@@ -1,12 +1,18 @@
 import { html } from 'ghtml'
 import govukAttributes from '../../utils/govuk-attributes.js'
 
-// The SVG needs `focusable="false"` so that Internet Explorer does not
-// treat it as an interactive element - without this it will be focusable
-// when using the keyboard to navigate
-const START_ICON = `<svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-  <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"/>
-</svg>`
+/**
+ * @param {buttonConfig} params
+ * @return {string} start icon SVG
+ */
+function startIcon(params) {
+  // The SVG needs `focusable="false"` so that Internet Explorer does not
+  // treat it as an interactive element - without this it will be focusable
+  // when using the keyboard to navigate
+  return (params.isStartButton === true && `<svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"/>
+  </svg>`) || ''
+}
 
 /**
  * Use the button component to help users carry out an action like starting an application or saving their information.
@@ -46,8 +52,8 @@ export default function govukButton(params) {
   const commonAttributes = html` class="${classNames}" data-module="govuk-button"!${govukAttributes(params.attributes)}!${params.id ? html` id="${params.id}"` : ''}`
 
   if (element === 'a') {
-    return html`<a href="${params.href || '#'}" role="button" draggable="false" !${commonAttributes}>
-  !${params.html ?? html`${params.text}`}!${params.isStartButton ? START_ICON : ''}
+    return html`<a href="${params.href || '#'}" role="button" draggable="false"!${commonAttributes}>
+  !${params.html ?? html`${params.text}`}!${startIcon(params)}
 </a>`
   }
 
@@ -56,12 +62,12 @@ export default function govukButton(params) {
 
   if (element === 'button') {
     return html`<button!${params.value ? html` value="${params.value}"` : ''} type="${params.type ?? 'submit'}"!${buttonAttributes}!${commonAttributes}>
-  !${params.html ?? html`${params.text}`}!${params.isStartButton ? START_ICON : ''}
+  !${params.html ?? html`${params.text}`}!${startIcon(params)}
 </button>`
   }
 
   // Must be input
-  return html`<input value="${params.text}" type="${params.type ?? 'submit'}" !${buttonAttributes} !${commonAttributes}>`
+  return html`<input value="${params.text}" type="${params.type ?? 'submit'}"!${buttonAttributes}!${commonAttributes}>`
 }
 
 /**
