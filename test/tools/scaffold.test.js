@@ -31,47 +31,52 @@ describe('scaffold component cli', async () => {
   })
 
   it('generates header .js, complex types and custom example', async () => {
-    const { stdout } = await exec(`node ${path} header 'with service name'`)
+    const { stdout } = await exec(`node ${path} header "with service name"`)
     equal(stdout, header)
   })
 
   it('errors for unknown component', async () => {
     const errMsg = `${redBold('[Error]')} ${bold('no component "bad", must be one of:')}`
-    const list = yellow(`"accordion"
- "back-link"
- "breadcrumbs"
- "button"
- "character-count"
- "checkboxes"
- "cookie-banner"
- "date-input"
- "details"
- "error-message"
- "error-summary"
- "exit-this-page"
- "fieldset"
- "file-upload"
- "footer"
- "header"
- "hint"
- "input"
- "inset-text"
- "label"
- "notification-banner"
- "pagination"
- "panel"
- "password-input"
- "phase-banner"
- "radios"
- "select"
- "skip-link"
- "summary-list"
- "table"
- "tabs"
- "tag"
- "task-list"
- "textarea"
- "warning-text"`)
+    const list = [
+      '"accordion"',
+      '"back-link"',
+      '"breadcrumbs"',
+      '"button"',
+      '"character-count"',
+      '"checkboxes"',
+      '"cookie-banner"',
+      '"date-input"',
+      '"details"',
+      '"error-message"',
+      '"error-summary"',
+      '"exit-this-page"',
+      '"fieldset"',
+      '"file-upload"',
+      '"footer"',
+      '"header"',
+      '"hint"',
+      '"input"',
+      '"inset-text"',
+      '"label"',
+      '"notification-banner"',
+      '"pagination"',
+      '"panel"',
+      '"password-input"',
+      '"phase-banner"',
+      '"radios"',
+      '"select"',
+      '"skip-link"',
+      '"summary-list"',
+      '"table"',
+      '"tabs"',
+      '"tag"',
+      '"task-list"',
+      '"textarea"',
+      '"warning-text"'
+    ]
+      .map((i) => yellow(i))
+      .join('\n ')
+
     await rejects(() => exec(`node ${path} bad`), {
       stderr: `${errMsg} \n ${list}\n`
     })
@@ -79,44 +84,49 @@ describe('scaffold component cli', async () => {
 
   it('errors for unknown fixtures test example', async () => {
     const errMsg = `${redBold('[Error]')} ${bold('no example "bad", must be one of:')}`
-    const list = yellow(`"default"
- "disabled"
- "link"
- "start"
- "start link"
- "input"
- "input disabled"
- "prevent double click"
- "with active state"
- "with hover state"
- "with focus state"
- "secondary"
- "secondary disabled"
- "secondary link"
- "warning"
- "warning disabled"
- "warning link"
- "inverse"
- "inverse disabled"
- "inverse link"
- "inverse start"
- "attributes"
- "link attributes"
- "input attributes"
- "classes"
- "link classes"
- "input classes"
- "name"
- "type"
- "input type"
- "explicit link"
- "no href"
- "value"
- "html"
- "no type"
- "no data-prevent-double-click"
- "don't prevent double click"
- "id"`)
+    const list = [
+      '"default"',
+      '"disabled"',
+      '"link"',
+      '"start"',
+      '"start link"',
+      '"input"',
+      '"input disabled"',
+      '"prevent double click"',
+      '"with active state"',
+      '"with hover state"',
+      '"with focus state"',
+      '"secondary"',
+      '"secondary disabled"',
+      '"secondary link"',
+      '"warning"',
+      '"warning disabled"',
+      '"warning link"',
+      '"inverse"',
+      '"inverse disabled"',
+      '"inverse link"',
+      '"inverse start"',
+      '"attributes"',
+      '"link attributes"',
+      '"input attributes"',
+      '"classes"',
+      '"link classes"',
+      '"input classes"',
+      '"name"',
+      '"type"',
+      '"input type"',
+      '"explicit link"',
+      '"no href"',
+      '"value"',
+      '"html"',
+      '"no type"',
+      '"no data-prevent-double-click"',
+      '"don\'t prevent double click"',
+      '"id"'
+    ]
+      .map((i) => yellow(i))
+      .join('\n ')
+
     await rejects(() => exec(`node ${path} button bad`), {
       stderr: `${errMsg} \n ${list}\n`
     })
