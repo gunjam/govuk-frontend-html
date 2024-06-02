@@ -98,15 +98,21 @@ export default function govukAttributes(attributes) {
       typeof value === 'object'
         ? value
         : {
-            value,
-            optional: false
-          }
+          value,
+          optional: false
+        }
 
     // Output ` name` only (no value) for boolean attributes
     if (options.optional === true && options.value === true) {
       attributesHtml += html` ${name}`
       // Skip optional empty attributes or output ` name="value"` pair by default
-    } else if ((options.optional === true && options.value !== undefined && options.value !== null && options.value !== false) || options.optional !== true) {
+    } else if (
+      (options.optional === true &&
+        options.value !== undefined &&
+        options.value !== null &&
+        options.value !== false) ||
+      options.optional !== true
+    ) {
       attributesHtml += html` ${name}="${options.value}"`
     }
   }

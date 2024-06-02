@@ -18,9 +18,9 @@
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 300,
+    "lineWidth": 100,
     "lineEnding": "lf",
-    "ignore": ["coverage/", "node_modules/", "./package.json"]
+    "ignore": ["coverage/", "node_modules/", "./package.json", "./components", "./test/fixtures"]
   },
   "javascript": {
     "formatter": {
@@ -28,5 +28,13 @@
       "quoteStyle": "single",
       "trailingComma": "none"
     }
-  }
+  },
+  "overrides": [
+    {
+      "include": ["components/**"],
+      "formatter": {
+        "lineWidth": 300
+      }
+    }
+  ]
 }

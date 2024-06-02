@@ -22,7 +22,10 @@ describe('govukAttributes', () => {
       }
     })
 
-    equal(attributes, ' data-attribute="value" data-second-attribute="second-value" data-third-attribute="third-value"')
+    equal(
+      attributes,
+      ' data-attribute="value" data-second-attribute="second-value" data-third-attribute="third-value"'
+    )
   })
 
   it('renders attribute values as strings by default', () => {
@@ -83,7 +86,10 @@ describe('govukAttributes', () => {
 
     // Note that all non-optional values are rendered to strings by Nunjucks,
     // even true/false which only become boolean attributes when optional
-    equal(attributes, ' example-empty-1="" example-empty-2="" example-falsy-1="" example-falsy-2="0" example-falsy-3="false"')
+    equal(
+      attributes,
+      ' example-empty-1="" example-empty-2="" example-falsy-1="" example-falsy-2="0" example-falsy-3="false"'
+    )
   })
 
   it('skip attribute when falsy with `optional: true` and null, undefined or false', () => {
