@@ -18,6 +18,7 @@ function startIcon(params) {
  * Use the button component to help users carry out an action like starting an application or saving their information.
  * @param {buttonConfig} params Button config options
  * @returns {string} Button HTML
+ * @see {@link https://design-system.service.gov.uk/components/button/ GOV.UK Design System}
  * @example
  * ```javascript
  * govukButton({
