@@ -1,5 +1,6 @@
 import { readFile, readdir } from 'node:fs/promises'
 import { join } from 'node:path'
+import { styleText } from 'node:util'
 
 const GOVUK_COMPONENTS_PATH = join(
   import.meta.dirname,
@@ -118,6 +119,19 @@ async function getComponentJson(component, type) {
 }
 
 /**
+ * Get styled error message text
+ * @param {string} msg - error message
+ * @param {Array.<string>} list - list of correct items
+ * @returns {string}
+ */
+function errorMsg(msg, list) {
+  const errorTxt = styleText(['red', 'bold'], '[Error]')
+  const listTxt = styleText('yellow', `"${list.join('"\n "')}"`)
+  const msgTxt = styleText('bold', msg)
+  return `${errorTxt} ${msgTxt} \n ${listTxt}\n`
+}
+
+/**
  * Get a list of all existing components in govuk-frontend
  * @returns {Promise.<Array.<string>>}
  */
@@ -138,8 +152,7 @@ async function makeComponent(component, example = 'default') {
   // End process with error code if trying to generate code for a component
   // that does not exist in govuk-frontent
   if (!availableComponents.includes(component)) {
-    const list = availableComponents.join(',\n')
-    const msg = `No component "${component}", must be one of:\n${list}"`
+    const msg = errorMsg(`no component "${component}", must be one of:`, availableComponents)
     process.stderr.write(msg)
     process.exit(1)
   }
@@ -155,8 +168,8 @@ async function makeComponent(component, example = 'default') {
 
   // End process with error code if specifiy a test example that does not exist
   if (!foundExample) {
-    const list = fixtures.fixtures.map((f) => f.name).join(',\n ')
-    const msg = `No example "${example}", must be one of:\n ${list}`
+    const list = fixtures.fixtures.map((f) => f.name)
+    const msg = errorMsg(`no example "${example}", must be one of:`, list)
     process.stderr.write(msg)
     process.exit(1)
   }
