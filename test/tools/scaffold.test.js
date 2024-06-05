@@ -1,8 +1,9 @@
 import { equal, rejects } from 'node:assert/strict'
 import childProcess from 'node:child_process'
-import { readFile } from 'node:fs/promises'
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
 import { join } from 'node:path'
-import { describe, it } from 'node:test'
+import { after, before, describe, it } from 'node:test'
 import { promisify, styleText } from 'node:util'
 
 const exec = promisify(childProcess.exec)
@@ -13,26 +14,87 @@ const redBold = (str) => styleText(['red', 'bold'], str)
 const yellow = (str) => styleText('yellow', str)
 const bold = (str) => styleText('bold', str)
 
+const tmpDir = process.env.TMP_DIR || tmpdir()
+
+let tmp = ''
+
+// Create temp dir to store produced commit details json file
+before(async () => {
+  tmp = await mkdtemp(join(tmpDir, 'scaffold'))
+})
+
+after(async () => rm(tmp, { recursive: true }))
+
 describe('scaffold component cli', async () => {
-  const [button, details, header] = await Promise.all([
+  const [
+    button,
+    buttonToUpdate,
+    buttonUpdated,
+    buttonTest,
+    details,
+    detailsTest,
+    header,
+    headerTest,
+    table,
+    tableTest
+  ] = await Promise.all([
     readFile(join(fixturesPath, 'button.js'), { encoding: 'utf8' }),
+    readFile(join(fixturesPath, 'button-to-update.js'), { encoding: 'utf8' }),
+    readFile(join(fixturesPath, 'button-updated.js'), { encoding: 'utf8' }),
+    readFile(join(fixturesPath, 'button-test.js'), { encoding: 'utf8' }),
     readFile(join(fixturesPath, 'details.js'), { encoding: 'utf8' }),
-    readFile(join(fixturesPath, 'header.js'), { encoding: 'utf8' })
+    readFile(join(fixturesPath, 'details-test.js'), { encoding: 'utf8' }),
+    readFile(join(fixturesPath, 'header.js'), { encoding: 'utf8' }),
+    readFile(join(fixturesPath, 'header-test.js'), { encoding: 'utf8' }),
+    readFile(join(fixturesPath, 'table.js'), { encoding: 'utf8' }),
+    readFile(join(fixturesPath, 'table-test.js'), { encoding: 'utf8' })
   ])
 
-  it('generates button .js', async () => {
-    const { stdout } = await exec(`node ${path} button`)
-    equal(stdout, button)
+  it('generates button.js', async () => {
+    await exec(`node ${path} --test-path=${tmp} --component-path=${tmp} button`)
+    const [component, test] = await Promise.all([
+      readFile(`${tmp}/button/button.js`, { encoding: 'utf8' }),
+      readFile(`${tmp}/button/button.test.js`, { encoding: 'utf8' })
+    ])
+    equal(component, button)
+    equal(test, buttonTest)
   })
 
-  it('generates details .js, does not include `caller` param', async () => {
-    const { stdout } = await exec(`node ${path} details`)
-    equal(stdout, details)
+  it('update button.js types', async () => {
+    await writeFile(join(tmp, 'button', 'button.js'), buttonToUpdate)
+    await exec(`node ${path} --test-path=${tmp} --component-path=${tmp} button`)
+    const updatedButton = await readFile(`${tmp}/button/button.js`, { encoding: 'utf8' })
+    equal(updatedButton, buttonUpdated)
   })
 
-  it('generates header .js, complex types and custom example', async () => {
-    const { stdout } = await exec(`node ${path} header "with service name"`)
-    equal(stdout, header)
+  it('generates details.js, does not include `caller` param', async () => {
+    await exec(`node ${path} --test-path=${tmp} --component-path=${tmp} details`)
+    const [component, test] = await Promise.all([
+      readFile(`${tmp}/details/details.js`, { encoding: 'utf8' }),
+      readFile(`${tmp}/details/details.test.js`, { encoding: 'utf8' })
+    ])
+    equal(component, details)
+    equal(test, detailsTest)
+  })
+
+  it('generates header.js, complex types & describe.each() replacement', async () => {
+    await exec(`node ${path} --test-path=${tmp} --component-path=${tmp} header`)
+    const [component, test] = await Promise.all([
+      readFile(`${tmp}/header/header.js`, { encoding: 'utf8' }),
+      readFile(`${tmp}/header/header.test.js`, { encoding: 'utf8' })
+    ])
+    equal(component, header)
+    equal(test, headerTest)
+  })
+
+  it('generates table.js, custom example & array comparisons', async () => {
+    await exec(`node ${path} --test-path=${tmp} --component-path=${tmp} table "table with head"`)
+    const [component, test] = await Promise.all([
+      readFile(`${tmp}/table/table.js`, { encoding: 'utf8' }),
+      readFile(`${tmp}/table/table.test.js`, { encoding: 'utf8' })
+    ])
+    equal(component, table)
+    equal(test, tableTest)
   })
 
   it('errors for unknown component', async () => {

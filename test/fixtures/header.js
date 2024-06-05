@@ -9,8 +9,6 @@ import govukAttributes from '../../utils/govuk-attributes.js'
  * @example
  * ```javascript
  * govukHeader({
- *   serviceName: 'Service Name',
- *   serviceUrl: '/components/header'
  * })
  * ```
  */
