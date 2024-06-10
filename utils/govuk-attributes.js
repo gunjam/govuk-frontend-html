@@ -87,33 +87,40 @@ export default function govukAttributes(attributes) {
 
   let attributesHtml = ''
 
-  if (typeof attributes !== 'object') {
+  if (typeof attributes !== 'object' || attributes === null) {
     return attributesHtml
   }
 
-  // Append attribute name/value pairs
-  for (const [name, value] of Object.entries(attributes)) {
-    // Set default attribute options
-    const options =
-      typeof value === 'object'
-        ? value
-        : {
-            value,
-            optional: false
-          }
+  const keys = Object.keys(attributes)
+  const attributesLength = keys.length
+  let index = 0
 
-    // Output ` name` only (no value) for boolean attributes
-    if (options.optional === true && options.value === true) {
+  // Append attribute name/value pairs
+  for (; index < attributesLength; index++) {
+    const name = keys[index]
+    const attribute = attributes[name]
+
+    // Plain name/value pair
+    if (typeof attribute !== 'object' || attribute === null) {
+      attributesHtml += html` ${name}="${attribute}"`
+      continue
+    }
+
+    // Attribute as object
+    const { optional, value } = attribute
+
+    if (optional === true && value === true) {
+      // Output ` name` only (no value) for boolean attributes
       attributesHtml += html` ${name}`
-      // Skip optional empty attributes or output ` name="value"` pair by default
-    } else if (
-      (options.optional === true &&
-        options.value !== undefined &&
-        options.value !== null &&
-        options.value !== false) ||
-      options.optional !== true
+      continue
+    }
+
+    if (
+      (optional === true && value !== undefined && value !== null && value !== false) ||
+      optional !== true
     ) {
-      attributesHtml += html` ${name}="${options.value}"`
+      // Skip optional empty attributes or output ` name="value"` pair by default
+      attributesHtml += html` ${name}="${value}"`
     }
   }
 
