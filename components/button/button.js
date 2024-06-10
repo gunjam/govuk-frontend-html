@@ -1,4 +1,5 @@
 import { html } from 'ghtml'
+import attribute from '../../utils/attribute.js'
 import govukAttributes from '../../utils/govuk-attributes.js'
 
 /**
@@ -31,45 +32,45 @@ export default function govukButton(params) {
   let classNames = 'govuk-button'
 
   if (params.classes) {
-    classNames += ` ${params.classes}`
+    classNames += html` ${params.classes}`
   }
   if (params.isStartButton) {
     classNames += ' govuk-button--start'
   }
 
   // Determine type of element to use, if not explicitly set
-  let element
+  let element = 'button'
 
   if (params.element) {
     element = params.element.toLowerCase()
-  } else {
-    if (params.href) {
-      element = 'a'
-    } else {
-      element = 'button'
-    }
+  } else if (params.href) {
+    element = 'a'
   }
 
   // Define common attributes that we can use across all element types
-  const commonAttributes = html` class="${classNames}" data-module="govuk-button"!${govukAttributes(params.attributes)}!${params.id ? html` id="${params.id}"` : ''}`
+  let attributes = ` class="${classNames}" data-module="govuk-button"`
+  attributes += govukAttributes(params.attributes)
+  attributes += attribute('id', params.id)
 
   if (element === 'a') {
-    return html`<a href="${params.href || '#'}" role="button" draggable="false"!${commonAttributes}>
+    return html`<a href="${params.href || '#'}" role="button" draggable="false"!${attributes}>
   !${params.html ?? html`${params.text}`}!${startIcon(params)}
 </a>`
   }
 
-  // Define common attributes we can use for both button and input types
-  const buttonAttributes = html`!${params.name ? html` name="${params.name}"` : ''}!${params.disabled ? ' disabled aria-disabled="true"' : ''}!${params.preventDoubleClick !== undefined ? html` data-prevent-double-click="${params.preventDoubleClick}"` : ''}`
+  // Add common attributes we use for both button and input types
+  attributes += attribute('name', params.name)
+  attributes += params.disabled ? ' disabled aria-disabled="true"' : ''
+  attributes += attribute('data-prevent-double-click', params.preventDoubleClick)
 
   if (element === 'button') {
-    return html`<button!${params.value ? html` value="${params.value}"` : ''} type="${params.type ?? 'submit'}"!${buttonAttributes}!${commonAttributes}>
+    return html`<button!${attribute('value', params.value)} type="${params.type ?? 'submit'}"!${attributes}>
   !${params.html ?? html`${params.text}`}!${startIcon(params)}
 </button>`
   }
 
   // Must be input
-  return html`<input value="${params.text}" type="${params.type ?? 'submit'}"!${buttonAttributes}!${commonAttributes}>`
+  return html`<input value="${params.text}" type="${params.type ?? 'submit'}"!${attributes}>`
 }
 
 /**
@@ -79,7 +80,7 @@ export default function govukButton(params) {
  *
  * If you’re using these components in production with “html” options, or ones ending with “html”, you must sanitise the HTML to protect against {@link https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting cross-site scripting exploits}.
  * @typedef {Object} buttonConfig
- * @property {string} [element] - HTML element for the button component – `input`, `button` or `a`. In most cases you will not need to set this as it will be configured automatically if `href` is provided. This parameter will be removed in the next major version.
+ * @property {'button' | 'input' | 'a'} [element] - HTML element for the button component – `input`, `button` or `a`. In most cases you will not need to set this as it will be configured automatically if `href` is provided. This parameter will be removed in the next major version.
  * @property {string} text - If `html` is set, this is not required. Text for the `input`, `button` or `a` element. If `html` is provided, the `text` option will be ignored and `element` will be automatically set to `"button"` unless `href` is also set, or it has already been defined.
  * @property {string} html - If `text` is set, this is not required. HTML for the `button` or `a` element only. If `html` is provided, the `text` option will be ignored and `element` will be automatically set to `"button"` unless `href` is also set, or it has already been defined. This option has no effect if `element` is set to `"input"`.
  * @property {string} [name] - Name for the `input` or `button`. This has no effect on `a` elements.
