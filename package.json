@@ -11,13 +11,13 @@
   "license": "MIT",
   "description": "govuk-frontend as plain JS functions that return HTML strings",
   "devDependencies": {
-    "@biomejs/biome": "^1.7.3",
+    "@biomejs/biome": "^1.8.0",
     "borp": "^0.14.0",
     "cheerio": "^1.0.0-rc.12",
     "govuk-frontend": "5.4.0",
     "mitata": "^0.1.11"
   },
   "dependencies": {
-    "ghtml": "^1.5.2"
+    "ghtml": "^1.7.1"
   }
 }
