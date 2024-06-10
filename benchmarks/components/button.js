@@ -1,37 +1,28 @@
-import { bench, run } from 'mitata'
-import govukButton from '../../components/button/button.js'
+import benchmark from '../bench-component.js'
 
-bench('govukButton - start now link', () => {
-  govukButton({
-    text: 'Start now',
-    href: '/start',
-    isStartButton: true
-  })
-})
-
-bench('govukButton - input', () => {
-  govukButton({
-    text: 'Continue',
-    element: 'input',
-    disabled: true
-  })
-})
-
-bench('govukButton - button', () => {
-  govukButton({
-    text: 'Continue',
-    preventDoubleClick: true
-  })
-})
-
-bench('govukButton - with attributes', () => {
-  govukButton({
-    text: 'Continue',
-    attributes: {
-      'arial-label': 'label',
-      'data-button-type': 'continue'
+await benchmark({
+  component: 'button',
+  tests: {
+    'start now link': {
+      text: 'Start now',
+      href: '/start',
+      isStartButton: true
+    },
+    input: {
+      text: 'Continue',
+      element: 'input',
+      disabled: true
+    },
+    button: {
+      text: 'Continue',
+      preventDoubleClick: true
+    },
+    'with attributes': {
+      text: 'Continue',
+      attributes: {
+        'arial-label': 'label',
+        'data-button-type': 'continue'
+      }
     }
-  })
+  }
 })
-
-await run()
