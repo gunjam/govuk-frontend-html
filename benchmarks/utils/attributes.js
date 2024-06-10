@@ -1,15 +1,15 @@
 import { bench, run } from 'mitata'
 import govukAttributes from '../../utils/govuk-attributes.js'
 
-bench('attributes - empty', () => {
+bench('govukAttributes - empty', () => {
   govukAttributes()
 })
 
-bench('attributes - string', () => {
+bench('govukAttributes - string', () => {
   govukAttributes(' class="test"')
 })
 
-bench('attributes - object', () => {
+bench('govukAttributes - object', () => {
   govukAttributes({
     id: 'test',
     title: 'thing',
@@ -17,7 +17,7 @@ bench('attributes - object', () => {
   })
 })
 
-bench('attributes - object with optionals', () => {
+bench('govukAttributes - object with optionals', () => {
   govukAttributes({
     id: {
       optional: false,
