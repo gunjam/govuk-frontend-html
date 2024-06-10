@@ -17,8 +17,8 @@ describe('attribute', () => {
   })
 
   it('escape HTML in input strings', () => {
-    equal(attribute('id', '<>'), ' id="&lt;&gt;"')
-    equal(attribute('<>', 'test'), ' &lt;&gt;="test"')
+    equal(attribute('id', '<>'), ' id="&#60;&#62;"')
+    equal(attribute('<>', 'test'), ' &#60;&#62;="test"')
   })
 
   it('returns empty string if value is undefined', () => {
