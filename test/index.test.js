@@ -23,6 +23,11 @@ describe('index.js', () => {
     deepEqual(module.govukHint, govukHint.default)
   })
 
+  it('exports govukInput()', async () => {
+    const govukInput = await import('../components/input/input.js')
+    deepEqual(module.govukInput, govukInput.default)
+  })
+
   it('exports govukLabel()', async () => {
     const govukLabel = await import('../components/label/label.js')
     deepEqual(module.govukLabel, govukLabel.default)
