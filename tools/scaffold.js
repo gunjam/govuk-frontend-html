@@ -1,6 +1,7 @@
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { parseArgs, styleText } from 'node:util'
+import { toCamelCase, toSpaced } from '../utils/text.js'
 
 const PACKAGE_JSON_PATH = join(import.meta.dirname, '../package.json')
 
@@ -118,35 +119,6 @@ async function createTest(component, dirPath) {
 
   await mkdir(dirPath, { recursive: true })
   await writeFile(filePath, converted)
-}
-
-/**
- * Capitalise first character
- * @param {string} str
- * @returns {string}
- */
-function capitalise(str) {
-  return `${str.charAt(0).toUpperCase()}${str.slice(1)}`
-}
-
-/**
- * Convert kebab case to camel case
- * @param {string} str
- * @returns {string}
- */
-function toCamelCase(str) {
-  return str.split('-').reduce((a, b) => `${a}${capitalise(b)}`)
-}
-
-/**
- * Convert kebab case to spaced sentence, capitalisied first char
- * @param {string} str
- * @returns {string}
- */
-function toSpaced(str) {
-  return capitalise(str)
-    .split('-')
-    .reduce((a, b) => `${a} ${b}`)
 }
 
 /**
