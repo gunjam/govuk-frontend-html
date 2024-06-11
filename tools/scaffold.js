@@ -73,8 +73,11 @@ function convertTest(testJs) {
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toBe\(([^)]+)\)/g, 'equal($1, $2)')
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toHaveLength\((\d+)\)/g, 'equal($1.length, $2)')
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toEqual\(\[/g, 'deepEqual($1, [')
+    .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toMatch\(('[^)]+')\)/g, 'equal($1, $2)')
+    .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toMatch\(([^)]+)\)/g, 'match($1, $2)')
 
   const assertions = []
+  const helpers = ['getExamples', 'render']
 
   if (/deepEqual\(/.test(converted)) {
     assertions.push('deepEqual')
@@ -82,17 +85,26 @@ function convertTest(testJs) {
   if (/equal\(/.test(converted)) {
     assertions.push('equal')
   }
+  if (/match\(/.test(converted)) {
+    assertions.push('match')
+  }
   if (/ok\(/.test(converted)) {
     assertions.push('ok')
   }
+  if (/htmlWithClassName/.test(converted)) {
+    helpers.push('htmlWithClassName')
+  }
+
+  helpers.sort()
 
   const imports = `import { ${assertions.join(', ')} } from 'node:assert/strict'
 import { before, describe, it } from 'node:test'
-import { getExamples, render } from '../../helper.js'`
+import { ${helpers.join(', ')} } from '../../helper.js'`
 
   return converted
     .replace(`const { render } = require('@govuk-frontend/helpers/nunjucks')`, imports)
     .replace(`const { getExamples } = require('@govuk-frontend/lib/components')\n`, '')
+    .replace(`const { htmlWithClassName } = require('@govuk-frontend/helpers/tests')\n`, '')
 }
 
 /**
