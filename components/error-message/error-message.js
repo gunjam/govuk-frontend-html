@@ -15,16 +15,17 @@ import govukAttributes from '../../utils/govuk-attributes.js'
  * ```
  */
 export default function govukErrorMessage(params) {
-  const visuallyHiddenText = params.visuallyHiddenText ?? 'Error'
-  const errorMessageText = params.html ?? html`${params.text}`
+  let content = params.html ?? html`${params.text}`
+  let hiddenText = 'Error'
 
-  return html`\
-<p!${attribute('id', params.id)} class="govuk-error-message ${params.classes}"!${govukAttributes(params.attributes)}>
-  !${visuallyHiddenText
-      ? html`<span class="govuk-visually-hidden">${visuallyHiddenText}:</span> !${errorMessageText}`
-      : errorMessageText
-    }
-</p>`
+  if (typeof params.visuallyHiddenText === 'string') {
+    hiddenText = html`${params.visuallyHiddenText}`
+  }
+  if (hiddenText) {
+    content = `<span class="govuk-visually-hidden">${hiddenText}:</span> ${content}`
+  }
+
+  return html`<p!${attribute('id', params.id)} class="govuk-error-message ${params.classes}"!${govukAttributes(params.attributes)}>!${content}</p>`
 }
 
 /**
