@@ -13,6 +13,11 @@ describe('index.js', () => {
     deepEqual(module.govukDetails, govukDetails.default)
   })
 
+  it('exports govukErrorMessage()', async () => {
+    const govukErrorMessage = await import('../components/error-message/error-message.js')
+    deepEqual(module.govukErrorMessage, govukErrorMessage.default)
+  })
+
   it('exports govukHint()', async () => {
     const govukHint = await import('../components/hint/hint.js')
     deepEqual(module.govukHint, govukHint.default)
