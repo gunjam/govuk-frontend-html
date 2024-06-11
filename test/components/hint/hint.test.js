@@ -14,7 +14,7 @@ describe('Hint', () => {
       const $ = await render('hint', examples.default)
 
       const content = $('.govuk-hint').text()
-      equal(content, "\n  It's on your National Insurance card, benefit letter, payslip or P60.\nFor example, 'QQ 12 34 56 C'.\n\n")
+      equal(content, "It's on your National Insurance card, benefit letter, payslip or P60.\nFor example, 'QQ 12 34 56 C'.\n")
     })
 
     it('renders with classes', async () => {

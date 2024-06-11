@@ -9,15 +9,13 @@ import govukAttributes from '../../utils/govuk-attributes.js'
  * @example
  * ```javascript
  * govukHint({
- *   text: 'It's on your National Insurance card, benefit letter, payslip or P60.\nFor example, 'QQ 12 34 56 C'.\n'
+ *   text: "It’s on your National Insurance card, benefit letter, payslip or P60. For example, 'QQ 12 34 56 C'."
  * })
  * ```
  */
 export default function govukHint(params) {
   const attributes = `${attribute('id', params.id)}${govukAttributes(params.attributes)}`
-  return html`<div class="govuk-hint ${params.classes}"!${attributes}>
-  !${params.html ?? html`${params.text}`}
-</div>`
+  return html`<div class="govuk-hint ${params.classes}"!${attributes}>!${params.html ?? html`${params.text}`}</div>`
 }
 
 /**
