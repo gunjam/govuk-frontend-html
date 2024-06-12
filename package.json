@@ -19,6 +19,6 @@
     "nunjucks": "^3.2.4"
   },
   "dependencies": {
-    "ghtml": "^2.0.1"
+    "ghtml": "^2.0.2"
   }
 }
