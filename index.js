@@ -9,6 +9,7 @@ import govukHeader from './components/header/header.js'
 import govukHint from './components/hint/hint.js'
 import govukInput from './components/input/input.js'
 import govukLabel from './components/label/label.js'
+import govukRadios from './components/radios/radios.js'
 import govukSkipLink from './components/skip-link/skip-link.js'
 import govukWarningText from './components/warning-text/warning-text.js'
 
@@ -24,6 +25,7 @@ export {
   govukHint,
   govukInput,
   govukLabel,
+  govukRadios,
   govukSkipLink,
   govukWarningText
 }
