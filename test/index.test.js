@@ -8,6 +8,11 @@ describe('index.js', () => {
     deepEqual(module.govukBackLink, govukBackLink.default)
   })
 
+  it('exports govukBreadcrumbs()', async () => {
+    const govukBreadcrumbs = await import('../components/breadcrumbs/breadcrumbs.js')
+    deepEqual(module.govukBreadcrumbs, govukBreadcrumbs.default)
+  })
+
   it('exports govukButton()', async () => {
     const govukButton = await import('../components/button/button.js')
     deepEqual(module.govukButton, govukButton.default)
