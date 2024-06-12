@@ -51,19 +51,22 @@ export default function govukButton(params) {
 </a>`
   }
 
+  // Button/input type
+  const inputType = params.type ? html`${params.type}` : 'submit'
+
   // Add common attributes we use for both button and input types
   attributes += attribute('name', params.name)
   attributes += params.disabled ? ' disabled aria-disabled="true"' : ''
   attributes += attribute('data-prevent-double-click', params.preventDoubleClick)
 
   if (element === 'button') {
-    return html`<button!${attribute('value', params.value)} type="${params.type ?? 'submit'}"!${attributes}>
-  !${params.html ?? html`${params.text}`}!${startIcon}
+    return `<button${attribute('value', params.value)} type="${inputType}"${attributes}>
+  ${params.html ?? html`${params.text}`}!${startIcon}
 </button>`
   }
 
   // Must be input
-  return html`<input value="${params.text}" type="${params.type ?? 'submit'}"!${attributes}>`
+  return html`<input value="${params.text}" type="!${inputType}"!${attributes}>`
 }
 
 /**
