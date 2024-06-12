@@ -18,6 +18,11 @@ describe('index.js', () => {
     deepEqual(module.govukErrorMessage, govukErrorMessage.default)
   })
 
+  it('exports govukFieldset()', async () => {
+    const govukFieldset = await import('../components/fieldset/fieldset.js')
+    deepEqual(module.govukFieldset, govukFieldset.default)
+  })
+
   it('exports govukHint()', async () => {
     const govukHint = await import('../components/hint/hint.js')
     deepEqual(module.govukHint, govukHint.default)
