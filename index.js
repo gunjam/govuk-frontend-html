@@ -1,4 +1,5 @@
 import govukBackLink from './components/back-link/back-link.js'
+import govukBreadcrumbs from './components/breadcrumbs/breadcrumbs.js'
 import govukButton from './components/button/button.js'
 import govukDetails from './components/details/details.js'
 import govukErrorMessage from './components/error-message/error-message.js'
@@ -11,6 +12,7 @@ import govukWarningText from './components/warning-text/warning-text.js'
 
 export {
   govukBackLink,
+  govukBreadcrumbs,
   govukButton,
   govukDetails,
   govukErrorMessage,
