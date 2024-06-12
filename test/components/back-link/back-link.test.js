@@ -15,7 +15,7 @@ describe('back-link component', () => {
     const $component = $('.govuk-back-link')
     equal($component.get(0).tagName, 'a')
     equal($component.attr('href'), '#')
-    equal($component.text().trim(), 'Back')
+    equal($component.text(), 'Back')
   })
 
   it('renders classes correctly', async () => {
@@ -29,28 +29,28 @@ describe('back-link component', () => {
     const $ = await render('back-link', examples['with custom text'])
 
     const $component = $('.govuk-back-link')
-    equal($component.html().trim(), 'Back to home')
+    equal($component.html(), 'Back to home')
   })
 
   it('renders escaped html when passed to text', async () => {
     const $ = await render('back-link', examples['html as text'])
 
     const $component = $('.govuk-back-link')
-    equal($component.html().trim(), '&lt;b&gt;Home&lt;/b&gt;')
+    equal($component.html(), '&lt;b&gt;Home&lt;/b&gt;')
   })
 
   it('renders html correctly', async () => {
     const $ = await render('back-link', examples.html)
 
     const $component = $('.govuk-back-link')
-    equal($component.html().trim(), '<b>Back</b>')
+    equal($component.html(), '<b>Back</b>')
   })
 
   it('renders default text correctly', async () => {
     const $ = await render('back-link', examples.default)
 
     const $component = $('.govuk-back-link')
-    equal($component.html().trim(), 'Back')
+    equal($component.html(), 'Back')
   })
 
   it('renders attributes correctly', async () => {
