@@ -1,6 +1,19 @@
 import { html } from 'ghtml'
 import govukAttributes from '../../utils/govuk-attributes.js'
 
+/**
+ * Use the back link component to help users go back to the previous page in a multi-page transaction.
+ * @param {backLinkConfig} params
+ * @returns {string} Back link HTML
+ * @see {@link https://design-system.service.gov.uk/components/back-link/ GOV.UK Design System}
+ * @example
+ * ```javascript
+ * govukBackLink({
+ *   text: 'Go back to details page',
+ *   href: '/test-page'
+ * })
+ * ```
+ */
 export default function govukBackLink(params) {
   return html`<a href="${params.href || '#'}" class="govuk-back-link !${params.classes}" !${govukAttributes(params.attributes)}>
     !${params.html ?? (html`${params.text}` || 'Back')}
