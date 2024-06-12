@@ -4,6 +4,7 @@ import govukButton from './components/button/button.js'
 import govukDetails from './components/details/details.js'
 import govukErrorMessage from './components/error-message/error-message.js'
 import govukFieldset from './components/fieldset/fieldset.js'
+import govukHeader from './components/header/header.js'
 import govukHint from './components/hint/hint.js'
 import govukInput from './components/input/input.js'
 import govukLabel from './components/label/label.js'
@@ -17,6 +18,7 @@ export {
   govukDetails,
   govukErrorMessage,
   govukFieldset,
+  govukHeader,
   govukHint,
   govukInput,
   govukLabel,
