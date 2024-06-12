@@ -33,6 +33,11 @@ describe('index.js', () => {
     deepEqual(module.govukFieldset, govukFieldset.default)
   })
 
+  it('exports govukHeader()', async () => {
+    const govukHeader = await import('../components/header/header.js')
+    deepEqual(module.govukHeader, govukHeader.default)
+  })
+
   it('exports govukHint()', async () => {
     const govukHint = await import('../components/hint/hint.js')
     deepEqual(module.govukHint, govukHint.default)
