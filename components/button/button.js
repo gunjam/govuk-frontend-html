@@ -1,19 +1,10 @@
+import { join } from 'node:path'
 import { html } from 'ghtml'
+import { includeFile } from 'ghtml/includeFile.js'
 import attribute from '../../utils/attribute.js'
 import govukAttributes from '../../utils/govuk-attributes.js'
 
-/**
- * @param {buttonConfig} params
- * @return {string} start icon SVG
- */
-function startIcon(params) {
-  // The SVG needs `focusable="false"` so that Internet Explorer does not
-  // treat it as an interactive element - without this it will be focusable
-  // when using the keyboard to navigate
-  return (params.isStartButton === true && `<svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
-    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"/>
-  </svg>`) || ''
-}
+const START_ICON = includeFile(join(import.meta.dirname, './start-icon.svg'))
 
 /**
  * Use the button component to help users carry out an action like starting an application or saving their information.
@@ -28,6 +19,8 @@ function startIcon(params) {
  * ```
  */
 export default function govukButton(params) {
+  const startIcon = params.isStartButton === true ? START_ICON : ''
+
   // Set classes for this component
   let classNames = 'govuk-button'
 
@@ -54,7 +47,7 @@ export default function govukButton(params) {
 
   if (element === 'a') {
     return html`<a href="${params.href || '#'}" role="button" draggable="false"!${attributes}>
-  !${params.html ?? html`${params.text}`}!${startIcon(params)}
+  !${params.html ?? html`${params.text}`}!${startIcon}
 </a>`
   }
 
@@ -65,7 +58,7 @@ export default function govukButton(params) {
 
   if (element === 'button') {
     return html`<button!${attribute('value', params.value)} type="${params.type ?? 'submit'}"!${attributes}>
-  !${params.html ?? html`${params.text}`}!${startIcon(params)}
+  !${params.html ?? html`${params.text}`}!${startIcon}
 </button>`
   }
 
