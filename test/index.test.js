@@ -73,6 +73,11 @@ describe('index.js', () => {
     deepEqual(module.govukSkipLink, govukSkipLink.default)
   })
 
+  it('exports govukTextarea()', async () => {
+    const govukTextarea = await import('../components/textarea/textarea.js')
+    deepEqual(module.govukTextarea, govukTextarea.default)
+  })
+
   it('exports govukWarningText()', async () => {
     const govukWarningText = await import('../components/warning-text/warning-text.js')
     deepEqual(module.govukWarningText, govukWarningText.default)

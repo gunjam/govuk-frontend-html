@@ -12,6 +12,7 @@ import govukInput from './components/input/input.js'
 import govukLabel from './components/label/label.js'
 import govukRadios from './components/radios/radios.js'
 import govukSkipLink from './components/skip-link/skip-link.js'
+import govukTextarea from './components/textarea/textarea.js'
 import govukWarningText from './components/warning-text/warning-text.js'
 
 export {
@@ -29,5 +30,6 @@ export {
   govukLabel,
   govukRadios,
   govukSkipLink,
+  govukTextarea,
   govukWarningText
 }
