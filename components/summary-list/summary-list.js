@@ -2,6 +2,77 @@ import { html } from 'ghtml'
 import govukAttributes from '../../utils/govuk-attributes.js'
 
 /**
+ * Generate action link HTML
+ * @param {actionsConfig} action - action config
+ * @param {titleConfig} cardTitle - card title config
+ * @return {string} action link HTML
+ */
+function actionLink(action, cardTitle) {
+  const actionText = action.html ?? html`${action.text}`
+
+  let hiddenText = ''
+
+  if (action.visuallyHiddenText || cardTitle) {
+    hiddenText += '<span class="govuk-visually-hidden">'
+    hiddenText += action.visuallyHiddenText ? html`${action.visuallyHiddenText} ` : ''
+    hiddenText += cardTitle ? `(${cardTitle.html ?? html`${cardTitle.text}`})` : ''
+    hiddenText += '</span>'
+  }
+
+  return html`<a class="govuk-link ${action.classes}" href="${action.href}"!${govukAttributes(action.attributes)}>
+    !${actionText} !${hiddenText}
+  </a>`
+}
+
+/**
+ * Generate action link HTML
+ * @param {cardConfig} params - summary card config
+ * @param {string} summaryList - summary list HTML
+ * @return {string} action link HTML
+ */
+function summaryCard(params, summaryList) {
+  const headingLevel = params.title?.headingLevel ? html`${params.title?.headingLevel}` : '2'
+
+  const title = params.title
+    ? html`<h!${headingLevel} class="govuk-summary-card__title ${params.title.classes}">
+      !${params.title.html ?? html`${params.title.text}`}
+    </h!${headingLevel}>`
+    : ''
+
+  const actionsLength = params.actions?.items?.length ?? 0
+  let actions = ''
+
+  if (actionsLength > 0) {
+    const actionClasses = params.actions.classes ? html` ${params.actions.classes}` : ''
+
+    if (actionsLength === 1) {
+      actions += `<div class="govuk-summary-card__actions${actionClasses}">
+        ${actionLink(params.actions.items[0], params.title)}
+      </div>`
+    } else {
+      actions += `<ul class="govuk-summary-card__actions${actionClasses}">`
+
+      for (const action of params.actions.items) {
+        actions += `<li class="govuk-summary-card__action">
+          ${actionLink(action, params.title)}
+        </li>`
+      }
+      actions += '</ul>'
+    }
+  }
+
+  return html`<div class="govuk-summary-card ${params.classes}"!${govukAttributes(params.attributes)}>
+    <div class="govuk-summary-card__title-wrapper">
+      !${title}
+      !${actions}
+    </div>
+    <div class="govuk-summary-card__content">
+      !${summaryList}
+    </div>
+  </div>`
+}
+
+/**
  * Use a summary list to summarise information, for example, a user’s responses at the end of a form.
  * @param {summaryListConfig} params - Summary list config options
  * @returns {string} Summary list HTML
@@ -39,86 +110,28 @@ import govukAttributes from '../../utils/govuk-attributes.js'
  * ```
  */
 export default function govukSummaryList(params) {
-  function actionLink(action, cardTitle) {
-    const actionText = action.html ?? html`${action.text}`
-
-    let hiddenText = ''
-
-    if (action.visuallyHiddenText || cardTitle) {
-      hiddenText += '<span class="govuk-visually-hidden">'
-      hiddenText += action.visuallyHiddenText ? html`${action.visuallyHiddenText} ` : ''
-      hiddenText += cardTitle ? `(${cardTitle.html ?? html`${cardTitle.text}`})` : ''
-      hiddenText += '</span>'
-    }
-
-    return html`<a class="govuk-link ${action.classes}" href="${action.href}"!${govukAttributes(action.attributes)}>
-      !${actionText} !${hiddenText}
-    </a>`
-  }
-
-  function summaryCard(params, summaryList) {
-    const headingLevel = params.title?.headingLevel ? html`${params.title?.headingLevel}` : '2'
-
-    const title = params.title
-      ? html`<h!${headingLevel} class="govuk-summary-card__title ${params.title.classes}">
-        !${params.title.html ?? html`${params.title.text}`}
-      </h!${headingLevel}>`
-      : ''
-
-    let actions = ''
-
-    if (params.actions?.items?.length > 0) {
-      if (params.actions.items.length === 1) {
-        actions += html`<div class="govuk-summary-card__actions ${params.actions.classes}">
-          !${actionLink(params.actions.items[0], params.title)}
-        </div>`
-      } else {
-        actions += html`<ul class="govuk-summary-card__actions ${params.actions.classes}">`
-
-        for (const action of params.actions.items) {
-          actions += `<li class="govuk-summary-card__action">
-            ${actionLink(action, params.title)}
-          </li>`
-        }
-        actions += '</ul>'
-      }
-    }
-
-    return html`<div class="govuk-summary-card ${params.classes}"!${govukAttributes(params.attributes)}>
-      <div class="govuk-summary-card__title-wrapper">
-        !${title}
-        !${actions}
-      </div>
-      <div class="govuk-summary-card__content">
-        !${summaryList}
-      </div>
-    </div>`
-  }
-
   // Determine if we need 2 or 3 columns
-  let anyRowHasActions = false
-  for (const row of params.rows) {
-    anyRowHasActions = row?.actions?.items?.length > 0 || anyRowHasActions
-  }
-
+  const anyRowHasActions = params.rows?.some((row) => row?.actions?.items?.length > 0) ?? false
   let summaryList = html`<dl class="govuk-summary-list ${params.classes}"!${govukAttributes(params.attributes)}>`
 
   for (const row of params.rows) {
     if (row) {
+      const actionsLength = row.actions?.items?.length ?? 0
+
       // If this row has no actions but other rows do, add class
-      const noActions = anyRowHasActions && !row.actions?.items?.length ? ' govuk-summary-list__row--no-actions' : ''
+      const noActions = anyRowHasActions && actionsLength === 0 ? ' govuk-summary-list__row--no-actions' : ''
       summaryList += html`<div class="govuk-summary-list__row!${noActions} ${row.classes}">
-        <dt class="govuk-summary-list__key ${row.key.classes}">
+        <dt class="govuk-summary-list__key ${row.key?.classes}">
           !${row.key?.html ?? html`${row.key?.text}`}
         </dt>
-        <dd class="govuk-summary-list__value ${row.value.classes}">
+        <dd class="govuk-summary-list__value ${row.value?.classes}">
           !${row.value?.html ?? html`${row.value?.text}`}
         </dd>`
 
-      if (row.actions?.items?.length) {
+      if (actionsLength > 0) {
         summaryList += html`<dd class="govuk-summary-list__actions ${row.actions.classes}">`
 
-        if (row.actions.items.length === 1) {
+        if (actionsLength === 1) {
           summaryList += actionLink(row.actions.items[0], params.card?.title)
         } else {
           summaryList += '<ul class="govuk-summary-list__actions-list">'
