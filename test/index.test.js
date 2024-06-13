@@ -28,6 +28,11 @@ describe('index.js', () => {
     deepEqual(module.govukErrorMessage, govukErrorMessage.default)
   })
 
+  it('exports govukErrorSummary()', async () => {
+    const govukErrorSummary = await import('../components/error-summary/error-summary.js')
+    deepEqual(module.govukErrorSummary, govukErrorSummary.default)
+  })
+
   it('exports govukFieldset()', async () => {
     const govukFieldset = await import('../components/fieldset/fieldset.js')
     deepEqual(module.govukFieldset, govukFieldset.default)
