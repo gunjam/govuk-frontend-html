@@ -1,6 +1,7 @@
 import govukBackLink from './components/back-link/back-link.js'
 import govukBreadcrumbs from './components/breadcrumbs/breadcrumbs.js'
 import govukButton from './components/button/button.js'
+import govukDateInput from './components/date-input/date-input.js'
 import govukDetails from './components/details/details.js'
 import govukErrorMessage from './components/error-message/error-message.js'
 import govukErrorSummary from './components/error-summary/error-summary.js'
@@ -19,6 +20,7 @@ export {
   govukBackLink,
   govukBreadcrumbs,
   govukButton,
+  govukDateInput,
   govukDetails,
   govukErrorMessage,
   govukErrorSummary,

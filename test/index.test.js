@@ -18,6 +18,11 @@ describe('index.js', () => {
     deepEqual(module.govukButton, govukButton.default)
   })
 
+  it('exports govukDateInput()', async () => {
+    const govukDateInput = await import('../components/date-input/date-input.js')
+    deepEqual(module.govukDateInput, govukDateInput.default)
+  })
+
   it('exports govukDetails()', async () => {
     const govukDetails = await import('../components/details/details.js')
     deepEqual(module.govukDetails, govukDetails.default)
