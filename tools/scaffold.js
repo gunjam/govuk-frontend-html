@@ -73,7 +73,7 @@ function convertTest(testJs) {
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toBe\(([^)]+)\)/g, 'equal($1, $2)')
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toHaveLength\((\d+)\)/g, 'equal($1.length, $2)')
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toEqual\(\[/g, 'deepEqual($1, [')
-    .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toMatch\(('[^)]+')\)/g, 'equal($1, $2)')
+    .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toMatch\(('[^)]+')\)/g, 'ok($1.includes($2))')
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toMatch\(([^)]+)\)/g, 'match($1, $2)')
 
   const assertions = []
