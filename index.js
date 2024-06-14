@@ -7,6 +7,7 @@ import govukDetails from './components/details/details.js'
 import govukErrorMessage from './components/error-message/error-message.js'
 import govukErrorSummary from './components/error-summary/error-summary.js'
 import govukFieldset from './components/fieldset/fieldset.js'
+import govukFileUpload from './components/file-upload/file-upload.js'
 import govukFooter from './components/footer/footer.js'
 import govukHeader from './components/header/header.js'
 import govukHint from './components/hint/hint.js'
@@ -29,6 +30,7 @@ export {
   govukErrorMessage,
   govukErrorSummary,
   govukFieldset,
+  govukFileUpload,
   govukFooter,
   govukHeader,
   govukHint,
