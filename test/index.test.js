@@ -120,6 +120,11 @@ describe('index.js', () => {
     deepEqual(module.govukPanel, govukPanel.default)
   })
 
+  it('exports govukPasswordInput()', async () => {
+    const govukPasswordInput = await import('../components/password-input/password-input.js')
+    deepEqual(module.govukPasswordInput, govukPasswordInput.default)
+  })
+
   it('exports govukPhaseBanner()', async () => {
     const govukPhaseBanner = await import('../components/phase-banner/phase-banner.js')
     deepEqual(module.govukPhaseBanner, govukPhaseBanner.default)
