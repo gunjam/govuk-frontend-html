@@ -11,7 +11,7 @@ import govukLabel from '../label/label.js'
  * @param {itemsConfig} item - the radio item options
  * @param {string} idPrefix - prefix for radio ID
  * @param {number} index - the index of the radio item (starts at 1)
- * @return {string} start icon SVG
+ * @return {string} radio item HTML
  */
 function radioItem(params, item, idPrefix, index) {
   if (item.divider) {
