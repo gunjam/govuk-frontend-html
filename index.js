@@ -24,6 +24,7 @@ import govukSkipLink from './components/skip-link/skip-link.js'
 import govukSummaryList from './components/summary-list/summary-list.js'
 import govukTabs from './components/tabs/tabs.js'
 import govukTag from './components/tag/tag.js'
+import govukTaskList from './components/task-list/task-list.js'
 import govukTextarea from './components/textarea/textarea.js'
 import govukWarningText from './components/warning-text/warning-text.js'
 
@@ -54,6 +55,7 @@ export {
   govukSummaryList,
   govukTabs,
   govukTag,
+  govukTaskList,
   govukTextarea,
   govukWarningText
 }
