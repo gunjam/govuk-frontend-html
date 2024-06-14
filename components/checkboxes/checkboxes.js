@@ -12,7 +12,7 @@ import govukLabel from '../label/label.js'
  * @param {itemsConfig} item - the checkbox item options
  * @param {string} idPrefix - prefix for checkbox ID
  * @param {number} index - the index of the checkbox item (starts at 1)
- * @return {string} start icon SVG
+ * @return {string} checkbox item HTML
  */
 function checkboxItem(params, item, idPrefix, hasFieldset, describedBy, index) {
   if (item.divider) {
