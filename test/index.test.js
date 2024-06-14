@@ -78,6 +78,11 @@ describe('index.js', () => {
     deepEqual(module.govukRadios, govukRadios.default)
   })
 
+  it('exports govukSelect()', async () => {
+    const govukSelect = await import('../components/select/select.js')
+    deepEqual(module.govukSelect, govukSelect.default)
+  })
+
   it('exports govukSkipLink()', async () => {
     const govukSkipLink = await import('../components/skip-link/skip-link.js')
     deepEqual(module.govukSkipLink, govukSkipLink.default)
