@@ -43,6 +43,11 @@ describe('index.js', () => {
     deepEqual(module.govukErrorSummary, govukErrorSummary.default)
   })
 
+  it('exports govukExitThisPage()', async () => {
+    const govukExitThisPage = await import('../components/exit-this-page/exit-this-page.js')
+    deepEqual(module.govukExitThisPage, govukExitThisPage.default)
+  })
+
   it('exports govukFieldset()', async () => {
     const govukFieldset = await import('../components/fieldset/fieldset.js')
     deepEqual(module.govukFieldset, govukFieldset.default)

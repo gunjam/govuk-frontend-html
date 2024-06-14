@@ -6,6 +6,7 @@ import govukDateInput from './components/date-input/date-input.js'
 import govukDetails from './components/details/details.js'
 import govukErrorMessage from './components/error-message/error-message.js'
 import govukErrorSummary from './components/error-summary/error-summary.js'
+import govukExitThisPage from './components/exit-this-page/exit-this-page.js'
 import govukFieldset from './components/fieldset/fieldset.js'
 import govukFooter from './components/footer/footer.js'
 import govukHeader from './components/header/header.js'
@@ -28,6 +29,7 @@ export {
   govukDetails,
   govukErrorMessage,
   govukErrorSummary,
+  govukExitThisPage,
   govukFieldset,
   govukFooter,
   govukHeader,
