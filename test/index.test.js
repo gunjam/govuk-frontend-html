@@ -18,6 +18,11 @@ describe('index.js', () => {
     deepEqual(module.govukButton, govukButton.default)
   })
 
+  it('exports govukCharacterCount()', async () => {
+    const govukCharacterCount = await import('../components/character-count/character-count.js')
+    deepEqual(module.govukCharacterCount, govukCharacterCount.default)
+  })
+
   it('exports govukCheckboxes()', async () => {
     const govukCheckboxes = await import('../components/checkboxes/checkboxes.js')
     deepEqual(module.govukCheckboxes, govukCheckboxes.default)
