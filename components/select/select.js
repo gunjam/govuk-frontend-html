@@ -123,10 +123,10 @@ export default function govukSelect(params) {
   }
 
   return html`<div class="!${formGroupClassNames}"!${govukAttributes(params.formGroup?.attributes)}>
-  !${beforeInput}
   !${label}
   !${hint}
   !${errorMessage}
+  !${beforeInput}
   <select class="!${classNames}" id="${params.id}" name="${params.name}"!${params.disabled ? ' disabled' : ''}!${attribute('aria-describedby', describedBy)}!${govukAttributes(params.attributes)}>
     !${options}
   </select>
