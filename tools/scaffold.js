@@ -73,8 +73,15 @@ function convertTest(testJs) {
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toBe\(([^)]+)\)/g, 'equal($1, $2)')
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toHaveLength\((\d+)\)/g, 'equal($1.length, $2)')
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toEqual\(\[/g, 'deepEqual($1, [')
-    .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toMatch\(('[^)]+')\)/g, 'ok($1.includes($2))')
+    .replaceAll(
+      /expect\((\n*\s*.*\n*\s*)\)\.toMatch\(\n*\s*('[^)]+')\n*\s*\)/g,
+      'ok($1.includes($2))'
+    )
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toMatch\(([^)]+)\)/g, 'match($1, $2)')
+    .replaceAll(
+      /expect\((\n*\s*.*\n*\s*)\)\.not\.toContain\(([^)]+)\)/g,
+      'equal($1.includes($2), false)'
+    )
 
   const assertions = []
   const helpers = ['getExamples', 'render']
