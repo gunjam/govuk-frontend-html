@@ -68,6 +68,11 @@ describe('index.js', () => {
     deepEqual(module.govukFieldset, govukFieldset.default)
   })
 
+  it('exports govukFileUpload()', async () => {
+    const govukFileUpload = await import('../components/file-upload/file-upload.js')
+    deepEqual(module.govukFileUpload, govukFileUpload.default)
+  })
+
   it('exports govukFooter()', async () => {
     const govukFooter = await import('../components/footer/footer.js')
     deepEqual(module.govukFooter, govukFooter.default)
