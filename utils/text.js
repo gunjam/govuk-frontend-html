@@ -1,7 +1,7 @@
 /**
  * Capitalise first character
- * @param {string} str
- * @returns {string}
+ * @param {string} input text
+ * @returns {string} capitilised text
  */
 export function capitalise(str) {
   return `${str.charAt(0).toUpperCase()}${str.slice(1)}`

@@ -1,4 +1,5 @@
 import govukButton from './components/button/button.js'
+import govukDateInput from './components/date-input/date-input.js'
 import govukDetails from './components/details/details.js'
 import govukErrorMessage from './components/error-message/error-message.js'
 import govukFieldset from './components/fieldset/fieldset.js'
@@ -10,6 +11,7 @@ import govukWarningText from './components/warning-text/warning-text.js'
 
 export {
   govukButton,
+  govukDateInput,
   govukDetails,
   govukErrorMessage,
   govukFieldset,
