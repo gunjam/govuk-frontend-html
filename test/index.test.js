@@ -108,6 +108,11 @@ describe('index.js', () => {
     deepEqual(module.govukSummaryList, govukSummaryList.default)
   })
 
+  it('exports govukTabs()', async () => {
+    const govukTabs = await import('../components/tabs/tabs.js')
+    deepEqual(module.govukTabs, govukTabs.default)
+  })
+
   it('exports govukTag()', async () => {
     const govukTag = await import('../components/tag/tag.js')
     deepEqual(module.govukTag, govukTag.default)
