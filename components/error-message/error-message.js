@@ -3,14 +3,14 @@ import attribute from '../../utils/attribute.js'
 import govukAttributes from '../../utils/govuk-attributes.js'
 
 /**
- * Error message component
+ * Follow the {@link https://design-system.service.gov.uk/patterns/validation/ validation pattern} and show an error message when there is a validation error. In the error message explain what went wrong and how to fix it.
  * @param {errorMessageConfig} params - Error message config options
  * @returns {string} Error message HTML
  * @see {@link https://design-system.service.gov.uk/components/error-message/ GOV.UK Design System}
  * @example
  * ```javascript
  * govukErrorMessage({
- *   text: 'Error message about full name goes here'
+ *   text: 'The date your passport was issued must be in the past'
  * })
  * ```
  */
