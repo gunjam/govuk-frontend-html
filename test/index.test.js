@@ -110,6 +110,11 @@ describe('index.js', () => {
     deepEqual(module.govukNotificationBanner, govukNotificationBanner.default)
   })
 
+  it('exports govukPagination()', async () => {
+    const govukPagination = await import('../components/pagination/pagination.js')
+    deepEqual(module.govukPagination, govukPagination.default)
+  })
+
   it('exports govukPanel()', async () => {
     const govukPanel = await import('../components/panel/panel.js')
     deepEqual(module.govukPanel, govukPanel.default)
