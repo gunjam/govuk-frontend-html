@@ -140,6 +140,11 @@ describe('index.js', () => {
     deepEqual(module.govukSummaryList, govukSummaryList.default)
   })
 
+  it('exports govukTable()', async () => {
+    const govukTable = await import('../components/table/table.js')
+    deepEqual(module.govukTable, govukTable.default)
+  })
+
   it('exports govukTabs()', async () => {
     const govukTabs = await import('../components/tabs/tabs.js')
     deepEqual(module.govukTabs, govukTabs.default)

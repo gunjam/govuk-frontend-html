@@ -25,6 +25,7 @@ import govukRadios from './components/radios/radios.js'
 import govukSelect from './components/select/select.js'
 import govukSkipLink from './components/skip-link/skip-link.js'
 import govukSummaryList from './components/summary-list/summary-list.js'
+import govukTable from './components/table/table.js'
 import govukTabs from './components/tabs/tabs.js'
 import govukTag from './components/tag/tag.js'
 import govukTaskList from './components/task-list/task-list.js'
@@ -59,6 +60,7 @@ export {
   govukSelect,
   govukSkipLink,
   govukSummaryList,
+  govukTable,
   govukTabs,
   govukTag,
   govukTaskList,
