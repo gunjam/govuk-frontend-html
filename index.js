@@ -1,3 +1,4 @@
+import govukAccordion from './components/accordion/accordion.js'
 import govukBackLink from './components/back-link/back-link.js'
 import govukBreadcrumbs from './components/breadcrumbs/breadcrumbs.js'
 import govukButton from './components/button/button.js'
@@ -21,6 +22,7 @@ import govukTextarea from './components/textarea/textarea.js'
 import govukWarningText from './components/warning-text/warning-text.js'
 
 export {
+  govukAccordion,
   govukBackLink,
   govukBreadcrumbs,
   govukButton,

@@ -3,6 +3,11 @@ import { describe, it } from 'node:test'
 import * as module from '../index.js'
 
 describe('index.js', () => {
+  it('exports govukAccordion()', async () => {
+    const govukAccordion = await import('../components/accordion/accordion.js')
+    deepEqual(module.govukAccordion, govukAccordion.default)
+  })
+
   it('exports govukBackLink()', async () => {
     const govukBackLink = await import('../components/back-link/back-link.js')
     deepEqual(module.govukBackLink, govukBackLink.default)
