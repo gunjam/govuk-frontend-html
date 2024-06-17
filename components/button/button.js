@@ -61,7 +61,7 @@ export default function govukButton(params) {
 
   if (element === 'button') {
     return `<button${attribute('value', params.value)} type="${inputType}"${attributes}>
-  ${params.html ?? html`${params.text}`}!${startIcon}
+  ${params.html ?? html`${params.text}`}${startIcon}
 </button>`
   }
 
