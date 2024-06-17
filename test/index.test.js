@@ -93,6 +93,13 @@ describe('index.js', () => {
     deepEqual(module.govukLabel, govukLabel.default)
   })
 
+  it('exports govukNotificationBanner()', async () => {
+    const govukNotificationBanner = await import(
+      '../components/notification-banner/notification-banner.js'
+    )
+    deepEqual(module.govukNotificationBanner, govukNotificationBanner.default)
+  })
+
   it('exports govukPanel()', async () => {
     const govukPanel = await import('../components/panel/panel.js')
     deepEqual(module.govukPanel, govukPanel.default)
