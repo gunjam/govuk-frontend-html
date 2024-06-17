@@ -18,6 +18,7 @@ import govukRadios from './components/radios/radios.js'
 import govukSelect from './components/select/select.js'
 import govukSkipLink from './components/skip-link/skip-link.js'
 import govukSummaryList from './components/summary-list/summary-list.js'
+import govukTag from './components/tag/tag.js'
 import govukTextarea from './components/textarea/textarea.js'
 import govukWarningText from './components/warning-text/warning-text.js'
 
@@ -42,6 +43,7 @@ export {
   govukSelect,
   govukSkipLink,
   govukSummaryList,
+  govukTag,
   govukTextarea,
   govukWarningText
 }

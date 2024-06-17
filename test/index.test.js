@@ -103,6 +103,11 @@ describe('index.js', () => {
     deepEqual(module.govukSummaryList, govukSummaryList.default)
   })
 
+  it('exports govukTag()', async () => {
+    const govukTag = await import('../components/tag/tag.js')
+    deepEqual(module.govukTag, govukTag.default)
+  })
+
   it('exports govukTextarea()', async () => {
     const govukTextarea = await import('../components/textarea/textarea.js')
     deepEqual(module.govukTextarea, govukTextarea.default)
