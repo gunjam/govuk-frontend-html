@@ -15,6 +15,7 @@ import govukHint from './components/hint/hint.js'
 import govukInput from './components/input/input.js'
 import govukInsetText from './components/inset-text/inset-text.js'
 import govukLabel from './components/label/label.js'
+import govukPanel from './components/panel/panel.js'
 import govukRadios from './components/radios/radios.js'
 import govukSelect from './components/select/select.js'
 import govukSkipLink from './components/skip-link/skip-link.js'
@@ -42,6 +43,7 @@ export {
   govukInput,
   govukInsetText,
   govukLabel,
+  govukPanel,
   govukRadios,
   govukSelect,
   govukSkipLink,

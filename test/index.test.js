@@ -88,6 +88,11 @@ describe('index.js', () => {
     deepEqual(module.govukLabel, govukLabel.default)
   })
 
+  it('exports govukPanel()', async () => {
+    const govukPanel = await import('../components/panel/panel.js')
+    deepEqual(module.govukPanel, govukPanel.default)
+  })
+
   it('exports govukRadios()', async () => {
     const govukRadios = await import('../components/radios/radios.js')
     deepEqual(module.govukRadios, govukRadios.default)
