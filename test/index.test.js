@@ -78,6 +78,11 @@ describe('index.js', () => {
     deepEqual(module.govukInput, govukInput.default)
   })
 
+  it('exports govukInsetText()', async () => {
+    const govukInsetText = await import('../components/inset-text/inset-text.js')
+    deepEqual(module.govukInsetText, govukInsetText.default)
+  })
+
   it('exports govukLabel()', async () => {
     const govukLabel = await import('../components/label/label.js')
     deepEqual(module.govukLabel, govukLabel.default)

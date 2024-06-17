@@ -13,6 +13,7 @@ import govukFooter from './components/footer/footer.js'
 import govukHeader from './components/header/header.js'
 import govukHint from './components/hint/hint.js'
 import govukInput from './components/input/input.js'
+import govukInsetText from './components/inset-text/inset-text.js'
 import govukLabel from './components/label/label.js'
 import govukRadios from './components/radios/radios.js'
 import govukSelect from './components/select/select.js'
@@ -38,6 +39,7 @@ export {
   govukHeader,
   govukHint,
   govukInput,
+  govukInsetText,
   govukLabel,
   govukRadios,
   govukSelect,
