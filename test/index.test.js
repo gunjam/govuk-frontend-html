@@ -115,6 +115,11 @@ describe('index.js', () => {
     deepEqual(module.govukPanel, govukPanel.default)
   })
 
+  it('exports govukPhaseBanner()', async () => {
+    const govukPhaseBanner = await import('../components/phase-banner/phase-banner.js')
+    deepEqual(module.govukPhaseBanner, govukPhaseBanner.default)
+  })
+
   it('exports govukRadios()', async () => {
     const govukRadios = await import('../components/radios/radios.js')
     deepEqual(module.govukRadios, govukRadios.default)

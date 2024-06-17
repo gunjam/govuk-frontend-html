@@ -20,6 +20,7 @@ import govukInsetText from './components/inset-text/inset-text.js'
 import govukLabel from './components/label/label.js'
 import govukNotificationBanner from './components/notification-banner/notification-banner.js'
 import govukPanel from './components/panel/panel.js'
+import govukPhaseBanner from './components/phase-banner/phase-banner.js'
 import govukRadios from './components/radios/radios.js'
 import govukSelect from './components/select/select.js'
 import govukSkipLink from './components/skip-link/skip-link.js'
@@ -53,6 +54,7 @@ export {
   govukLabel,
   govukNotificationBanner,
   govukPanel,
+  govukPhaseBanner,
   govukRadios,
   govukSelect,
   govukSkipLink,
