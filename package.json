@@ -15,6 +15,7 @@
     "borp": "^0.15.0",
     "cheerio": "^1.0.0-rc.12",
     "govuk-frontend": "5.4.0",
+    "html-validate": "^8.20.1",
     "mitata": "^0.1.11",
     "nunjucks": "^3.2.4"
   },

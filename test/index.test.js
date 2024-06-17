@@ -170,6 +170,11 @@ describe('index.js', () => {
     deepEqual(module.govukTaskList, govukTaskList.default)
   })
 
+  it('exports govukTemplate()', async () => {
+    const govukTemplate = await import('../template.js')
+    deepEqual(module.govukTemplate, govukTemplate.default)
+  })
+
   it('exports govukTextarea()', async () => {
     const govukTextarea = await import('../components/textarea/textarea.js')
     deepEqual(module.govukTextarea, govukTextarea.default)
