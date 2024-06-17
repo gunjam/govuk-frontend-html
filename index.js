@@ -4,6 +4,7 @@ import govukBreadcrumbs from './components/breadcrumbs/breadcrumbs.js'
 import govukButton from './components/button/button.js'
 import govukCharacterCount from './components/character-count/character-count.js'
 import govukCheckboxes from './components/checkboxes/checkboxes.js'
+import govukCookieBanner from './components/cookie-banner/cookie-banner.js'
 import govukDateInput from './components/date-input/date-input.js'
 import govukDetails from './components/details/details.js'
 import govukErrorMessage from './components/error-message/error-message.js'
@@ -28,6 +29,7 @@ export {
   govukButton,
   govukCharacterCount,
   govukCheckboxes,
+  govukCookieBanner,
   govukDateInput,
   govukDetails,
   govukErrorMessage,
