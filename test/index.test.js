@@ -33,6 +33,11 @@ describe('index.js', () => {
     deepEqual(module.govukCheckboxes, govukCheckboxes.default)
   })
 
+  it('exports govukCookieBanner()', async () => {
+    const govukCookieBanner = await import('../components/cookie-banner/cookie-banner.js')
+    deepEqual(module.govukCookieBanner, govukCookieBanner.default)
+  })
+
   it('exports govukDateInput()', async () => {
     const govukDateInput = await import('../components/date-input/date-input.js')
     deepEqual(module.govukDateInput, govukDateInput.default)
