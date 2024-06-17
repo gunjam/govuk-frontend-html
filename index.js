@@ -33,6 +33,7 @@ import govukTag from './components/tag/tag.js'
 import govukTaskList from './components/task-list/task-list.js'
 import govukTextarea from './components/textarea/textarea.js'
 import govukWarningText from './components/warning-text/warning-text.js'
+import govukTemplate from './template.js'
 
 export {
   govukAccordion,
@@ -68,6 +69,7 @@ export {
   govukTabs,
   govukTag,
   govukTaskList,
+  govukTemplate,
   govukTextarea,
   govukWarningText
 }
