@@ -3,37 +3,6 @@ import attribute from '../../utils/attribute.js'
 import govukAttributes from '../../utils/govuk-attributes.js'
 
 /**
- * Create a tab
- * @param {string} idPrefix - id prefix
- * @param {itemsConfig} item - the tabs item options
- * @param {number} index - the index of the tab item (starts at 1)
- * @return {string} tab HTML
- */
-function tabListItem(idPrefix, item, index) {
-  const tabPanelId = item.id ?? `${idPrefix}-${index}`
-  return html`<li class="govuk-tabs__list-item!${index === 1 ? ' govuk-tabs__list-item--selected' : ''}">
-    <a class="govuk-tabs__tab" href="#!${tabPanelId}"
-      !${govukAttributes(item.attributes)}>
-      ${item.label}
-    </a>
-  </li>`
-}
-
-/**
- * Create a tab panel
- * @param {string} idPrefix - id prefix
- * @param {itemsConfig} item - the tabs item options
- * @param {number} index - the index of the tab item (starts at 1)
- * @return {string} tab panel HTML
- */
-function tabPanel(idPrefix, item, index) {
-  const tabPanelId = item.id ?? `${idPrefix}-${index}`
-  return `<div class="govuk-tabs__panel${index > 1 ? ' govuk-tabs__panel--hidden' : ''}" id="${tabPanelId}"${govukAttributes(item.panel.attributes)}>
-  ${item.panel?.html ?? (item.panel?.text ? html`<p class="govuk-body">${item.panel.text}</p>` : '')}
-</div>`
-}
-
-/**
  * The tabs component lets users navigate between related sections of content, displaying one section at a time.
  * @param {tabsConfig} params - Tabs config options
  * @returns {string} Tabs HTML
@@ -86,8 +55,18 @@ export default function govukTabs(params) {
     for (const item of params.items) {
       if (item) {
         index++
-        tabs += tabListItem(idPrefix, item, index)
-        panels += tabPanel(idPrefix, item, index)
+        const tabPanelId = item.id ?? `${idPrefix}-${index}`
+
+        tabs += html`<li class="govuk-tabs__list-item!${index === 1 ? ' govuk-tabs__list-item--selected' : ''}">
+          <a class="govuk-tabs__tab" href="#!${tabPanelId}"
+            !${govukAttributes(item.attributes)}>
+            ${item.label}
+          </a>
+        </li>`
+
+        panels += `<div class="govuk-tabs__panel${index > 1 ? ' govuk-tabs__panel--hidden' : ''}" id="${tabPanelId}"${govukAttributes(item.panel.attributes)}>
+        ${item.panel?.html ?? (item.panel?.text ? html`<p class="govuk-body">${item.panel.text}</p>` : '')}
+      </div>`
       }
     }
     tabs += '</ul>'
