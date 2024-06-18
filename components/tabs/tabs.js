@@ -64,7 +64,7 @@ export default function govukTabs(params) {
           </a>
         </li>`
 
-        panels += `<div class="govuk-tabs__panel${index > 1 ? ' govuk-tabs__panel--hidden' : ''}" id="${tabPanelId}"${govukAttributes(item.panel.attributes)}>
+        panels += `<div class="govuk-tabs__panel${index > 1 ? ' govuk-tabs__panel--hidden' : ''}" id="${tabPanelId}"${govukAttributes(item.panel?.attributes)}>
         ${item.panel?.html ?? (item.panel?.text ? html`<p class="govuk-body">${item.panel.text}</p>` : '')}
       </div>`
       }
