@@ -73,7 +73,7 @@ export default function govukTemplate(params) {
       !${
         params.mainHtml ??
         `<div class="govuk-width-container${params.containerClasses ? html` ${params.containerClasses}` : ''}">
-        ${params.beforeContentHtml}
+        ${params.beforeContentHtml ?? ''}
         <main class="govuk-main-wrapper${params.mainClasses ? html` ${params.mainClasses}` : ''}" id="main-content"${attribute('lang', params.mainLang)}>
           ${params.contentHtml}
         </main>
