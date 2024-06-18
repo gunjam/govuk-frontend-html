@@ -1,0 +1,10 @@
+{
+  "description": "Use the text input component when you need to let users enter text that’s no longer than a single line, such as their name or phone number.",
+  "example": {
+    "label": {
+      "text": "National Insurance number"
+    },
+    "id": "input-example",
+    "name": "test-name"
+  }
+}

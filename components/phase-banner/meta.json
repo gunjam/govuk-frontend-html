@@ -1,0 +1,9 @@
+{
+  "description": "Use the phase banner component to show users your service is still being worked on.\n\nServices hosted on a service.gov.uk domain must use the phase banner until they pass a live assessment.",
+  "example": {
+    "tag": {
+      "text": "Alpha"
+    },
+    "html": "This is a new service - your <a href=\"#\" class=\"govuk-link\">feedback</a> will help us to improve it."
+  }
+}

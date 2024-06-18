@@ -1,0 +1,7 @@
+{
+  "description": "The panel component is a visible container used on confirmation or results pages to highlight important content.",
+  "example": {
+    "titleHtml": "Application complete",
+    "text": "Your reference number: HDJ2123F"
+  }
+}
