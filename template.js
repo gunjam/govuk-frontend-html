@@ -66,7 +66,7 @@ export default function govukTemplate(params) {
       <script!${attribute('nonce', params.cspNonce)}>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
       !${params.bodyStartHtml}
 
-      !${params.skipLinkHtml ?? govukSkipLink({ href: '#content', text: 'Skip to main content' })}
+      !${params.skipLinkHtml ?? govukSkipLink({ href: '#main-content', text: 'Skip to main content' })}
 
       !${params.headerHtml ?? govukHeader({})}
 
