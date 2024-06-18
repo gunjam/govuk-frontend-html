@@ -1,0 +1,15 @@
+{
+  "description": "Use the date input component to help users enter a memorable date or one they can easily look up.",
+  "example": {
+    "id": "passport-issued",
+    "namePrefix": "passport-issued",
+    "fieldset": {
+      "legend": {
+        "text": "When was your passport issued?"
+      }
+    },
+    "hint": {
+      "text": "For example, 27 3 2007"
+    }
+  }
+}

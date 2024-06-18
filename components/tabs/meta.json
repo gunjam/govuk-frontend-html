@@ -1,0 +1,35 @@
+{
+  "description": "The tabs component lets users navigate between related sections of content, displaying one section at a time.",
+  "example": {
+    "items": [
+      {
+        "label": "Past day",
+        "id": "past-day",
+        "panel": {
+          "html": "<h2 class=\"govuk-heading-l\">Past day</h2>"
+        }
+      },
+      {
+        "label": "Past week",
+        "id": "past-week",
+        "panel": {
+          "html": "<h2 class=\"govuk-heading-l\">Past week</h2>"
+        }
+      },
+      {
+        "label": "Past month",
+        "id": "past-month",
+        "panel": {
+          "html": "<h2 class=\"govuk-heading-l\">Past month</h2>"
+        }
+      },
+      {
+        "label": "Past year",
+        "id": "past-year",
+        "panel": {
+          "text": "There is no data for this year yet, check back later"
+        }
+      }
+    ]
+  }
+}

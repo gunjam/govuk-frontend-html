@@ -1,0 +1,10 @@
+{
+  "description": "Help users select and upload a file.\n\nYou should only ask users to upload something if it’s critical to the delivery of your service.",
+  "example": {
+    "id": "file-upload-1",
+    "name": "file-upload-1",
+    "label": {
+      "text": "Upload a file"
+    }
+  }
+}

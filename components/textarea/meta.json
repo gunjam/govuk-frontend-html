@@ -1,0 +1,10 @@
+{
+  "description": "Use the textarea component when you need to let users enter an amount of text that’s longer than a single line.",
+  "example": {
+    "name": "more-detail",
+    "id": "more-detail",
+    "label": {
+      "text": "Can you provide more detail?"
+    }
+  }
+}

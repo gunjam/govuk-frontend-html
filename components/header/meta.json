@@ -1,0 +1,8 @@
+{
+  "description": "The GOV.UK header shows users that they are on GOV.UK and which service they are using.",
+  "example": {
+    "homepageUrl": "https://gov.uk",
+    "serviceName": "Service name",
+    "serviceUrl": "/"
+  }
+}

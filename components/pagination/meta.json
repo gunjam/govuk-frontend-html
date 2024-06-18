@@ -1,0 +1,26 @@
+{
+  "description": "Help users navigate forwards and backwards through a series of pages. For example, search results or guidance that’s divided into multiple website pages – like [the GOV.UK mainstream guide format](https://prototype-kit.service.gov.uk/v12/docs/templates/mainstream-guide).",
+  "example": {
+    "previous": {
+      "href": "/previous"
+    },
+    "next": {
+      "href": "/next"
+    },
+    "items": [
+      {
+        "number": 1,
+        "href": "/page/1"
+      },
+      {
+        "number": 2,
+        "href": "/page/2",
+        "current": true
+      },
+      {
+        "number": 3,
+        "href": "/page/3"
+      }
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "description": "Label an input.",
+  "example": {
+    "text": "National Insurance number"
+  }
+}

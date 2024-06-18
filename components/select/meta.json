@@ -1,0 +1,29 @@
+{
+  "description": "The select component should only be used as a last resort in public-facing services because research shows that some users find selects very difficult to use.",
+  "example": {
+    "id": "sort",
+    "name": "sort",
+    "label": {
+      "text": "Sort by"
+    },
+    "items": [
+      {
+        "value": "published",
+        "text": "Recently published"
+      },
+      {
+        "value": "updated",
+        "text": "Recently updated",
+        "selected": true
+      },
+      {
+        "value": "views",
+        "text": "Most views"
+      },
+      {
+        "value": "comments",
+        "text": "Most comments"
+      }
+    ]
+  }
+}
