@@ -66,7 +66,7 @@ Find out when to use the Task list component in your service in the [GOV.UK Desi
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | title | object | The main title for the task within the task list component. |
-| hint | object | Can be used to add a hint to each task within the task list component. See [hint](../component/hint/README.md#hint-options). |
+| hint | object | Can be used to add a hint to each task within the task list component. See [hint](../hint/README.md#hint-options). |
 | status | object | The status for each task within the task list component. |
 | href | string | The value of the link’s `href` attribute for the task list item. |
 | classes | string | Classes to add to the item `div`. |
@@ -93,7 +93,7 @@ Find out when to use the Task list component in your service in the [GOV.UK Desi
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| tag | object | Can be used to add a tag to the status of the task within the task list component. See [tag](../component/tag/README.md#tag-options). |
+| tag | object | Can be used to add a tag to the status of the task within the task list component. See [tag](../tag/README.md#tag-options). |
 | text | string | Text to use for the status, as an alternative to using a tag. If `html` or `tag` is provided, the `text` argument will be ignored. |
 | html | string | HTML to use for the status, as an alternative to using a tag. If `html` or `tag` is provided, the `text` argument will be ignored. |
 | classes | string | Classes to add to the status container. |

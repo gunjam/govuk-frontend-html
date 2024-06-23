@@ -46,8 +46,8 @@ Find out when to use the Radios component in your service in the [GOV.UK Design 
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| fieldset | object | The fieldset used by the radios component. See [fieldset](../component/fieldset/README.md#fieldset-options). |
-| hint | object | Can be used to add a hint to the radios component. See [hint](../component/hint/README.md#hint-options). |
+| fieldset | object | The fieldset used by the radios component. See [fieldset](../fieldset/README.md#fieldset-options). |
+| hint | object | Can be used to add a hint to the radios component. See [hint](../hint/README.md#hint-options). |
 | errorMessage | object | Can be used to add an error message to the radios component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`. |
 | formGroup | object | Additional options for the form group containing the radios component. |
 | idPrefix | string | Optional prefix. This is used to prefix the `id` attribute for each radio input, hint and error message, separated by `-`. Defaults to the `name` option value. |
@@ -92,8 +92,8 @@ Find out when to use the Radios component in your service in the [GOV.UK Design 
 | html | string | If `text` is set, this is not required. HTML to use within each radio item label. If `html` is provided, the `text` option will be ignored. |
 | id | string | Specific ID attribute for the radio item. If omitted, then `idPrefix` string will be applied. |
 | value | string | Value for the radio input. |
-| label | object | Subset of options for the label used by each radio item within the radios component. See [label](../component/label/README.md#label-options). |
-| hint | object | Can be used to add a hint to each radio item within the radios component. See [hint](../component/hint/README.md#hint-options). |
+| label | object | Subset of options for the label used by each radio item within the radios component. See [label](../label/README.md#label-options). |
+| hint | object | Can be used to add a hint to each radio item within the radios component. See [hint](../hint/README.md#hint-options). |
 | divider | string | Divider text to separate radio items, for example the text `"or"`. |
 | checked | boolean | Whether the radio should be checked when the page loads. Takes precedence over the top-level `value` option. |
 | conditional | object | Provide additional content to reveal when the radio is checked. |

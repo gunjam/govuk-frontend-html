@@ -32,8 +32,8 @@ Find out when to use the Input component in your service in the [GOV.UK Design S
 | value | string | Optional initial value of the input. |
 | disabled | boolean | If `true`, input will be disabled. |
 | describedBy | string | One or more element IDs to add to the `aria-describedby` attribute, used to provide additional descriptive information for screenreader users. |
-| label | object | The label used by the text input component. See [label](../component/label/README.md#label-options). |
-| hint | object | Can be used to add a hint to a text input component. See [hint](../component/hint/README.md#hint-options). |
+| label | object | The label used by the text input component. See [label](../label/README.md#label-options). |
+| hint | object | Can be used to add a hint to a text input component. See [hint](../hint/README.md#hint-options). |
 | errorMessage | object | Can be used to add an error message to the text input component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`. |
 | prefix | object | Can be used to add a prefix to the text input component. |
 | suffix | object | Can be used to add a suffix to the text input component. |

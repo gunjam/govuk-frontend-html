@@ -46,8 +46,8 @@ Find out when to use the Checkboxes component in your service in the [GOV.UK Des
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | describedBy | string | One or more element IDs to add to the input `aria-describedby` attribute without a fieldset, used to provide additional descriptive information for screenreader users. |
-| fieldset | object | Can be used to add a fieldset to the checkboxes component. See [fieldset](../component/fieldset/README.md#fieldset-options). |
-| hint | object | Can be used to add a hint to the checkboxes component. See [hint](../component/hint/README.md#hint-options). |
+| fieldset | object | Can be used to add a fieldset to the checkboxes component. See [fieldset](../fieldset/README.md#fieldset-options). |
+| hint | object | Can be used to add a hint to the checkboxes component. See [hint](../hint/README.md#hint-options). |
 | errorMessage | object | Can be used to add an error message to the checkboxes component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`. |
 | formGroup | object | Additional options for the form group containing the checkboxes component. |
 | idPrefix | string | Optional prefix. This is used to prefix the `id` attribute for each checkbox item input, hint and error message, separated by `-`. Defaults to the `name` option value. |
@@ -93,8 +93,8 @@ Find out when to use the Checkboxes component in your service in the [GOV.UK Des
 | id | string | Specific ID attribute for the checkbox item. If omitted, then component global `idPrefix` option will be applied. |
 | name | string | Specific name for the checkbox item. If omitted, then component global `name` string will be applied. |
 | value | string | Value for the checkbox input. |
-| label | object | Subset of options for the label used by each checkbox item within the checkboxes component. See [label](../component/label/README.md#label-options). |
-| hint | object | Can be used to add a hint to each checkbox item within the checkboxes component. See [hint](../component/hint/README.md#hint-options). |
+| label | object | Subset of options for the label used by each checkbox item within the checkboxes component. See [label](../label/README.md#label-options). |
+| hint | object | Can be used to add a hint to each checkbox item within the checkboxes component. See [hint](../hint/README.md#hint-options). |
 | divider | string | Divider text to separate checkbox items, for example the text `"or"`. |
 | checked | boolean | Whether the checkbox should be checked when the page loads. Takes precedence over the top-level `values` option. |
 | conditional | object | Provide additional content to reveal when the checkbox is checked. |

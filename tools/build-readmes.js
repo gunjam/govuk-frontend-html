@@ -62,16 +62,16 @@ function getParamsTable(options, heading = '') {
     let description = option.description
     switch (option.name) {
       case 'label':
-        description += ' See [label](../component/label/README.md#label-options).'
+        description += ' See [label](../label/README.md#label-options).'
         break
       case 'hint':
-        description += ' See [hint](../component/hint/README.md#hint-options).'
+        description += ' See [hint](../hint/README.md#hint-options).'
         break
       case 'fieldset':
-        description += ' See [fieldset](../component/fieldset/README.md#fieldset-options).'
+        description += ' See [fieldset](../fieldset/README.md#fieldset-options).'
         break
       case 'tag':
-        description += ' See [tag](../component/tag/README.md#tag-options).'
+        description += ' See [tag](../tag/README.md#tag-options).'
     }
 
     def += `| ${option.name} | ${option.type} | ${description} |\n`
