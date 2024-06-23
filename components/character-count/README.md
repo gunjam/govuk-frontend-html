@@ -38,8 +38,8 @@ Find out when to use the Character count component in your service in the [GOV.U
 | maxlength | string | If `maxwords` is set, this is not required. The maximum number of characters. If `maxwords` is provided, the `maxlength` option will be ignored. |
 | maxwords | string | If `maxlength` is set, this is not required. The maximum number of words. If `maxwords` is provided, the `maxlength` option will be ignored. |
 | threshold | string | The percentage value of the limit at which point the count message is displayed. If this attribute is set, the count message will be hidden by default. |
-| label | object | The label used by the character count component. See [label](../component/label/README.md#label-options). |
-| hint | object | Can be used to add a hint to the character count component. See [hint](../component/hint/README.md#hint-options). |
+| label | object | The label used by the character count component. See [label](../label/README.md#label-options). |
+| hint | object | Can be used to add a hint to the character count component. See [hint](../hint/README.md#hint-options). |
 | errorMessage | object | Can be used to add an error message to the character count component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`. |
 | formGroup | object | Additional options for the form group containing the character count component. |
 | classes | string | Classes to add to the textarea. |

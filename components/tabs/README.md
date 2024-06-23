@@ -63,7 +63,7 @@ Find out when to use the Tabs component in your service in the [GOV.UK Design Sy
 | Name | Type | Description |
 | ---- | ---- | ----------- |
 | id | string | Specific ID attribute for the tab item. If omitted, then `idPrefix` string is required instead. |
-| label | string | The text label of a tab item. See [label](../component/label/README.md#label-options). |
+| label | string | The text label of a tab item. See [label](../label/README.md#label-options). |
 | attributes | object | HTML attributes (for example data attributes) to add to the tab. |
 | panel | object | The contents of each tab within the tabs component. This is referenced as a panel. |
 

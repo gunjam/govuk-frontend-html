@@ -28,6 +28,6 @@ Find out when to use the Phase banner component in your service in the [GOV.UK D
 | ---- | ---- | ----------- |
 | text | string | If `html` is set, this is not required. Text to use within the phase banner. If `html` is provided, the `text` option will be ignored. |
 | html | string | If `text` is set, this is not required. HTML to use within the phase banner. If `html` is provided, the `text` option will be ignored. |
-| tag | object | The tag used by the phase banner component. See [tag](../component/tag/README.md#tag-options). |
+| tag | object | The tag used by the phase banner component. See [tag](../tag/README.md#tag-options). |
 | classes | string | Classes to add to the phase banner container. |
 | attributes | object | HTML attributes (for example data attributes) to add to the phase banner container. |

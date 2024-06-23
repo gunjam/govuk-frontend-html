@@ -33,10 +33,10 @@ Find out when to use the Date input component in your service in the [GOV.UK Des
 | id | string | This is used for the main component and to compose the ID attribute for each item. |
 | namePrefix | string | Optional prefix. This is used to prefix each item `name`, separated by `-`. |
 | items | array | The inputs within the date input component. |
-| hint | object | Can be used to add a hint to a date input component. See [hint](../component/hint/README.md#hint-options). |
+| hint | object | Can be used to add a hint to a date input component. See [hint](../hint/README.md#hint-options). |
 | errorMessage | object | Can be used to add an error message to the date input component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`. |
 | formGroup | object | Additional options for the form group containing the date input component. |
-| fieldset | object | Can be used to add a fieldset to the date input component. See [fieldset](../component/fieldset/README.md#fieldset-options). |
+| fieldset | object | Can be used to add a fieldset to the date input component. See [fieldset](../fieldset/README.md#fieldset-options). |
 | classes | string | Classes to add to the date-input container. |
 | attributes | object | HTML attributes (for example data attributes) to add to the date-input container. |
 
@@ -47,7 +47,7 @@ Find out when to use the Date input component in your service in the [GOV.UK Des
 | ---- | ---- | ----------- |
 | id | string | Item-specific ID. If provided, it will be used instead of the generated ID. |
 | name | string | Item-specific name attribute. |
-| label | string | Item-specific label text. If provided, this will be used instead of `name` for item label text. See [label](../component/label/README.md#label-options). |
+| label | string | Item-specific label text. If provided, this will be used instead of `name` for item label text. See [label](../label/README.md#label-options). |
 | value | string | If provided, it will be used as the initial value of the input. |
 | autocomplete | string | Attribute to [identify input purpose](https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose.html), for instance `"bday-day"`. See [autofill](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill) for full list of attributes that can be used. |
 | pattern | string | Attribute to [provide a regular expression pattern](https://html.spec.whatwg.org/multipage/sec-forms.html#the-pattern-attribute), used to match allowed character combinations for the input value. |

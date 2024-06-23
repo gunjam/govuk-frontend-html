@@ -32,8 +32,8 @@ Find out when to use the File upload component in your service in the [GOV.UK De
 | value | string | Optional initial value of the input. |
 | disabled | boolean | If `true`, file input will be disabled. |
 | describedBy | string | One or more element IDs to add to the `aria-describedby` attribute, used to provide additional descriptive information for screenreader users. |
-| label | object | The label used by the file upload component. See [label](../component/label/README.md#label-options). |
-| hint | object | Can be used to add a hint to the file upload component. See [hint](../component/hint/README.md#hint-options). |
+| label | object | The label used by the file upload component. See [label](../label/README.md#label-options). |
+| hint | object | Can be used to add a hint to the file upload component. See [hint](../hint/README.md#hint-options). |
 | errorMessage | object | Can be used to add an error message to the file upload component. The error message component will not display if you use a falsy value for `errorMessage`, for example `false` or `null`. |
 | formGroup | object | Additional options for the form group containing the file upload component. |
 | classes | string | Classes to add to the file upload component. |
