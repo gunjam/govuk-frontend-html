@@ -1,24 +1,13 @@
-import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { parseArgs, styleText } from 'node:util'
 import { toCamelCase, toSpaced } from '../utils/text.js'
-
-const PACKAGE_JSON_PATH = join(import.meta.dirname, '../package.json')
-
-const GOVUK_COMPONENTS_PATH = join(
-  import.meta.dirname,
-  '../node_modules/govuk-frontend/dist/govuk/components/'
-)
-
-/**
- * Get the version of the currently installed govuk-frontend package
- * @returns {Promise<string>} version
- */
-async function getFrontendVersion() {
-  const file = await readFile(PACKAGE_JSON_PATH, { encoding: 'utf8' })
-  const installedVersion = JSON.parse(file).devDependencies['govuk-frontend']
-  return `v${installedVersion}`
-}
+import {
+  getComponentFixtures,
+  getComponentList,
+  getComponentOptions,
+  getFrontendVersion
+} from './component-meta.js'
 
 /**
  * Remove any `it()` test blocks that contain `callBlock:`, we don't support it
@@ -212,17 +201,6 @@ function getTypeDefs(type, options, defs = '') {
 }
 
 /**
- * Load component JSON from govuk-frontent
- * @param {string} component - component name, eg: `'button'`
- * @param {'fixtures'|'macro-options'} type - type of json
- * @returns {Promise.<Object>}
- */
-async function getComponentJson(component, type) {
-  const path = join(GOVUK_COMPONENTS_PATH, component, `${type}.json`)
-  return JSON.parse(await readFile(path, { encoding: 'utf8' }))
-}
-
-/**
  * Get styled error message text
  * @param {string} msg - error message
  * @param {Array.<string>} list - list of correct items
@@ -236,15 +214,6 @@ function errorMsg(msg, list) {
 }
 
 /**
- * Get a list of all existing components in govuk-frontend
- * @returns {Promise.<Array.<string>>}
- */
-async function getComponentList() {
-  const files = await readdir(GOVUK_COMPONENTS_PATH, { withFileTypes: true })
-  return files.filter((file) => file.isDirectory()).map((file) => file.name)
-}
-
-/**
  * Build a scaffolded JavaScript file with types and empty component function
  * @param {string} component - component name, eg: `'button'`
  * @param {string} [example='default'] - test example name, eg: `'default'`
@@ -253,16 +222,16 @@ async function getComponentList() {
 async function makeComponent(component, example, dirPath) {
   // Load macro options and test fixtures JSON from govuk-frontend npm package
   const [options, fixtures] = await Promise.all([
-    getComponentJson(component, 'macro-options'),
-    getComponentJson(component, 'fixtures')
+    getComponentOptions(component),
+    getComponentFixtures(component)
   ])
 
   // Get the test example parameters used to generated `@example` jsDoc
-  const foundExample = fixtures.fixtures.find((f) => f.name === example)
+  const foundExample = fixtures.find((f) => f.name === example)
 
   // End process with error code if the test example does not exist
   if (!foundExample) {
-    const list = fixtures.fixtures.map((f) => f.name)
+    const list = fixtures.map((f) => f.name)
     const msg = errorMsg(`no example "${example}", must be one of:`, list)
     process.stderr.write(msg)
     process.exit(1)
