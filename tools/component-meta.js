@@ -21,9 +21,8 @@ export async function getFrontendVersion() {
 }
 
 /**
- * Load component JSON from govuk-frontent
+ * Get component description and example options used in the project
  * @param {string} component - component name, eg: `'button'`
- * @param {'fixtures'|'macro-options'} type - type of json
  * @returns {Promise.<Object>}
  */
 export async function getComponentMeta(component) {
@@ -32,20 +31,18 @@ export async function getComponentMeta(component) {
 }
 
 /**
- * Load component JSON from govuk-frontent
+ * Load macro options JSON from govuk-frontend
  * @param {string} component - component name, eg: `'button'`
- * @param {'fixtures'|'macro-options'} type - type of json
- * @returns {Promise.<Object>}
+ * @returns {Promise.<Array.<macroOptions>>}
  */
-export async function getComponentOptions(component, type) {
+export async function getComponentOptions(component) {
   const path = join(GOVUK_COMPONENTS_PATH, component, 'macro-options.json')
   return JSON.parse(await readFile(path, { encoding: 'utf8' }))
 }
 
 /**
- * Load component JSON from govuk-frontent
+ * Load test fixtures JSON from govuk-frontend
  * @param {string} component - component name, eg: `'button'`
- * @param {'fixtures'|'macro-options'} type - type of json
  * @returns {Promise.<Object>}
  */
 export async function getComponentFixtures(component) {
@@ -61,3 +58,12 @@ export async function getComponentList() {
   const files = await readdir(GOVUK_COMPONENTS_PATH, { withFileTypes: true })
   return files.filter((file) => file.isDirectory()).map((file) => file.name)
 }
+
+/**
+ * @typedef {Object} macroOptions
+ * @property {string} name - The name of the parameter
+ * @property {string} type - The type of the parameter
+ * @property {boolean} required - Whether the paramter is required
+ * @property {string} description - A description of what the parameter does
+ * @property {Array.<macroOptions>} [params] - If type is object, the properties of that param
+ */
