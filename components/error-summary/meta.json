@@ -1,0 +1,16 @@
+{
+  "description": "Use this component at the top of a page to summarise any errors a user has made.\n\nWhen a user makes an error, you must show both an error summary and an [error message](https://design-system.service.gov.uk/components/error-message/) next to each answer that contains an error.",
+  "example": {
+    "titleText": "There is a problem",
+    "errorList": [
+      {
+        "text": "The date your passport was issued must be in the past",
+        "href": "#example-error-1"
+      },
+      {
+        "text": "Enter a postcode, like AA1 1AA",
+        "href": "#example-error-2"
+      }
+    ]
+  }
+}

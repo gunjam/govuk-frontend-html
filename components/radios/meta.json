@@ -1,0 +1,31 @@
+{
+  "description": "Use the radios component when users can only select one option from a list.",
+  "example": {
+    "name": "whereDoYouLive",
+    "fieldset": {
+      "legend": {
+        "text": "Where do you live?",
+        "isPageHeading": true,
+        "classes": "govuk-fieldset__legend--l"
+      }
+    },
+    "items": [
+      {
+        "value": "england",
+        "text": "England"
+      },
+      {
+        "value": "scotland",
+        "text": "Scotland"
+      },
+      {
+        "value": "wales",
+        "text": "Wales"
+      },
+      {
+        "value": "northern-ireland",
+        "text": "Northern Ireland"
+      }
+    ]
+  }
+}

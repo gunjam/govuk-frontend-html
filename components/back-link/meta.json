@@ -1,0 +1,7 @@
+{
+  "description": "Use the back link component to help users go back to the previous page in a multi-page transaction.",
+  "example": {
+    "text": "Go back to details page",
+    "href": "/test-page"
+  }
+}

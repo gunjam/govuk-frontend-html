@@ -1,0 +1,15 @@
+{
+  "description": "The breadcrumbs component helps users to understand where they are within a website’s structure and move between levels.",
+  "example": {
+    "items": [
+      {
+        "text": "Section",
+        "href": "/section"
+      },
+      {
+        "text": "Sub-section",
+        "href": "/section/sub-section"
+      }
+    ]
+  }
+}

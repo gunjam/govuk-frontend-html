@@ -1,0 +1,7 @@
+{
+  "description": "Use the skip link component to help keyboard-only users skip to the main content on a page.",
+  "example": {
+    "text": "Skip to main content",
+    "href": "#test-target-element"
+  }
+}

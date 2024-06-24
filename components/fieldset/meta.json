@@ -1,0 +1,8 @@
+{
+  "description": "Use the fieldset component to group related form inputs.",
+  "example": {
+    "legend": {
+      "text": "What is your address?"
+    }
+  }
+}

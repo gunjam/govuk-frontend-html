@@ -1,0 +1,7 @@
+{
+  "description": "Give users a way to quickly and safely exit a service, website or application.\n\nFor service journeys, you must use this component with the pattern to help a user [Exit a page quickly](https://design-system.service.gov.uk/patterns/exit-a-page-quickly/).",
+  "example": {
+    "text": "Exit this page",
+    "href": "https://bbc.co.uk/weather/"
+  }
+}

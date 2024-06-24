@@ -1,0 +1,10 @@
+{
+  "description": "Help users to create and enter passwords.",
+  "example": {
+    "label": {
+      "text": "Password"
+    },
+    "id": "password-input",
+    "name": "password"
+  }
+}

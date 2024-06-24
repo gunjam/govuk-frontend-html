@@ -1,0 +1,6 @@
+{
+  "description": "Follow the [validation pattern](https://design-system.service.gov.uk/patterns/validation/) and show an error message when there is a validation error. In the error message explain what went wrong and how to fix it.",
+  "example": {
+    "text": "The date your passport was issued must be in the past"
+  }
+}
