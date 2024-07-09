@@ -17,7 +17,7 @@ npm install govuk-frontend-html
 
 ## Usage
 
-All GOV.UK Design System components are importable and can be called with and options object to receive an HTML string:
+All GOV.UK Design System components are importable and can be called with an options object to receive an HTML string:
 
 ```javascript
 import { govukButton } from 'govuk-frontend-html'
