@@ -1,15 +1,29 @@
 {
   "name": "govuk-frontend-html",
+  "description": "govuk-frontend as plain JS functions that return HTML strings",
   "version": "0.0.0",
   "main": "index.js",
   "type": "module",
+  "homepage": "https://github.com/gunjam/govuk-frontend-html#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gunjam/govuk-frontend-html.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gunjam/govuk-frontend-html/issues"
+  },
+  "keywords": [
+    "govuk",
+    "frontend",
+    "design system",
+    "template"
+  ],
   "scripts": {
     "test": "borp --coverage",
     "lint": "biome check ."
   },
   "author": "gunjam@gmail.com",
   "license": "MIT",
-  "description": "govuk-frontend as plain JS functions that return HTML strings",
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
     "borp": "^0.15.0",
