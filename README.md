@@ -4,7 +4,7 @@
 
 `govuk-frontend-html` is a port of [govuk-frontend](https://github.com/alphagov/govuk-frontend) from nunjucks to plain JS functions, with the intention of providing a higher performance and more portable implementation which can be used anywhere within node.js and in any templating language that can execute a native JS function.
 
-All of the [GOV.UK Design system](https://design-system.service.gov.uk/) components have been implemented with a govuk-frontend compatiable API, where each function takes the same object parameters as their nunjucks counterpart.
+All of the [GOV.UK Design system](https://design-system.service.gov.uk/) components have been implemented with a govuk-frontend compatible API, where each function takes the same object parameters as their nunjucks counterpart.
 
 > [!IMPORTANT]
 > `govuk-frontend-html` does not include client side JS or styles, so you will also need to install govuk-frontend.
