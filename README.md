@@ -2,7 +2,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/gunjam/govuk-frontend-html/badge.svg?branch=main)](https://coveralls.io/github/gunjam/govuk-frontend-html?branch=main)
 
-`govuk-frontend-html` is a port of [govuk-frontend](https://github.com/alphagov/govuk-frontend) from nunjucks to plain JS functions, with the intention of providing a higher performance and more portable implementation which can be used anywhere within node.js and in any templating language that can execute a native JS function.
+`govuk-frontend-html` is a port of [govuk-frontend](https://github.com/alphagov/govuk-frontend) from nunjucks to plain JS functions, with the intention of providing higher performance and more portable implementation which can be used anywhere within node.js and in any templating language that can execute a native JS function.
 
 All of the [GOV.UK Design system](https://design-system.service.gov.uk/) components have been implemented with a govuk-frontend compatible API, where each function takes the same object parameters as their nunjucks counterpart.
 
