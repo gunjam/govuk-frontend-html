@@ -11,7 +11,7 @@
   "license": "MIT",
   "description": "govuk-frontend as plain JS functions that return HTML strings",
   "devDependencies": {
-    "@biomejs/biome": "^1.8.2",
+    "@biomejs/biome": "^1.8.3",
     "borp": "^0.15.0",
     "cheerio": "^1.0.0-rc.12",
     "govuk-frontend": "5.4.0",
@@ -20,6 +20,6 @@
     "nunjucks": "^3.2.4"
   },
   "dependencies": {
-    "ghtml": "^2.0.4"
+    "ghtml": "^2.1.0"
   }
 }
