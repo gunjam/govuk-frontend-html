@@ -18,6 +18,12 @@
     "design system",
     "template"
   ],
+  "files": [
+    "components",
+    "utils",
+    "index.js",
+    "template.js"
+  ],
   "scripts": {
     "test": "borp --coverage",
     "lint": "biome check ."
