@@ -31,8 +31,9 @@ export default function govukBreadcrumbs(params) {
   if (params.collapseOnMobile) {
     classNames += ' govuk-breadcrumbs--collapse-on-mobile'
   }
+  const ariaLabel = ` aria-label="${params.labelText ? html`${params.labelText}` : 'Breadcrumb'}"`
 
-  let breadcrumbs = `<div class="${classNames}"${govukAttributes(params.attributes)}>
+  let breadcrumbs = `<nav class="${classNames}"${govukAttributes(params.attributes)}${ariaLabel}>
   <ol class="govuk-breadcrumbs__list">`
 
   for (const item of params.items) {
@@ -47,7 +48,7 @@ export default function govukBreadcrumbs(params) {
 
   return `${breadcrumbs}
   </ol>
-</div>`
+</nav>`
 }
 
 /**
@@ -69,4 +70,5 @@ export default function govukBreadcrumbs(params) {
  * @property {string} [classes] - Classes to add to the breadcrumbs container.
  * @property {boolean} [collapseOnMobile] - When true, the breadcrumbs will collapse to the first and last item only on tablet breakpoint and below.
  * @property {{ [attribute: string]: string | { value: string, optional?: boolean } } | string} [attributes] - HTML attributes (for example data attributes) to add to the breadcrumbs container.
+ * @property {string} [labelText] - Plain text label identifying the landmark to screen readers. Defaults to "Breadcrumb".
  */

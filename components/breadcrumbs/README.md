@@ -34,6 +34,7 @@ Find out when to use the Breadcrumbs component in your service in the [GOV.UK De
 | classes | string | Classes to add to the breadcrumbs container. |
 | collapseOnMobile | boolean | When true, the breadcrumbs will collapse to the first and last item only on tablet breakpoint and below. |
 | attributes | object | HTML attributes (for example data attributes) to add to the breadcrumbs container. |
+| labelText | string | Plain text label identifying the landmark to screen readers. Defaults to "Breadcrumb". |
 
 
 ### Options for `items` object
