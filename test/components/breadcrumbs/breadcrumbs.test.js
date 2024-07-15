@@ -10,94 +10,144 @@ describe('Breadcrumbs', () => {
   })
 
   describe('default example', () => {
-    it('renders with items', async () => {
+    let $component
+    let $list
+    let $listItems
+
+    before(async () => {
       const $ = await render('breadcrumbs', examples.default)
 
-      const $items = $('.govuk-breadcrumbs__list-item')
-      equal($items.length, 2)
+      $component = $('.govuk-breadcrumbs')
+      $list = $('ol.govuk-breadcrumbs__list')
+      $listItems = $('li.govuk-breadcrumbs__list-item')
     })
 
-    it('renders 2 items', async () => {
-      const $ = await render('breadcrumbs', examples.default)
-      const $items = $('.govuk-breadcrumbs__list-item')
-      equal($items.length, 2)
+    it('renders as a nav element', async () => {
+      equal($component.get(0).tagName.toLowerCase(), 'nav')
     })
 
-    it('renders item with anchor', async () => {
-      const $ = await render('breadcrumbs', examples.default)
+    it('renders with default aria-label', async () => {
+      equal($component.attr('aria-label'), 'Breadcrumb')
+    })
 
-      const $anchor = $('.govuk-breadcrumbs__list-item a').first()
-      equal($anchor.get(0).tagName, 'a')
-      equal($anchor.attr('class'), 'govuk-breadcrumbs__link')
-      equal($anchor.attr('href'), '/section')
-      equal($anchor.text(), 'Section')
+    it('includes an ordered list', async () => {
+      ok($component.find($list))
+    })
+
+    it('includes 2 list items within the list', async () => {
+      equal($listItems.length, 2)
+    })
+
+    for (const { index, expectedText, expectedHref } of [
+      { index: 0, expectedText: 'Section', expectedHref: '/section' },
+      {
+        index: 1,
+        expectedText: 'Sub-section',
+        expectedHref: '/section/sub-section'
+      }
+    ]) {
+      describe(`the ${expectedText} breadcrumb`, () => {
+        it(`includes the text "${expectedText}"`, async () => {
+          equal($listItems.eq(index).eq(0).text().trim(), expectedText)
+        })
+
+        it('includes a link with the class govuk-breadcrumbs__link', async () => {
+          ok($listItems.eq(index).find('a').hasClass('govuk-breadcrumbs__link'))
+        })
+
+        it(`includes a link with the href "${expectedHref}"`, async () => {
+          equal($listItems.eq(index).find('a').attr('href'), expectedHref)
+        })
+      })
+    }
+  })
+
+  describe('when the last breadcrumb is the current page', () => {
+    let $lastItem
+
+    before(async () => {
+      const $ = await render('breadcrumbs', examples['with last breadcrumb as current page'])
+
+      $lastItem = $('.govuk-breadcrumbs__list-item:last-child')
+    })
+
+    it('includes the current page as the last list item', async () => {
+      equal($lastItem.eq(0).text().trim(), 'Travel abroad')
+    })
+
+    it('does not link the last list item', async () => {
+      equal($lastItem.find('a').length, 0)
+    })
+
+    it('sets the aria-current attribute to "page"', async () => {
+      equal($lastItem.attr('aria-current'), 'page')
     })
   })
 
   describe('custom options', () => {
-    it('renders item with text', async () => {
-      const $ = await render('breadcrumbs', examples['with last breadcrumb as current page'])
-
-      const $item = $('.govuk-breadcrumbs__list-item').last()
-      equal($item.text(), 'Travel abroad')
-    })
-
-    it('renders item with escaped entities in text', async () => {
+    it('escapes HTML when using the `text` option', async () => {
       const $ = await render('breadcrumbs', examples['html as text'])
-
       const $item = $('.govuk-breadcrumbs__list-item')
-      equal($item.html(), '&lt;span&gt;Section 1&lt;/span&gt;')
+
+      equal($item.eq(0).text().trim(), '<span>Section 1</span>')
     })
 
-    it('renders item with html', async () => {
+    it('escapes HTML when using the `text` option without a link', async () => {
+      const $ = await render('breadcrumbs', examples['html as text'])
+      const $item = $('.govuk-breadcrumbs__list-item:nth-child(2)')
+
+      equal($item.eq(0).text().trim(), '<span>Section 2</span>')
+    })
+
+    it('does not escape HTML when using the `html` option', async () => {
       const $ = await render('breadcrumbs', examples.html)
+      const $item = $('.govuk-breadcrumbs__list-item')
 
-      const $item = $('.govuk-breadcrumbs__list-item').first()
-      equal($item.html(), '<em>Section 1</em>')
+      ok($item.eq(0).html().includes('<em>Section 1</em>'))
     })
 
-    it('renders item with html inside anchor', async () => {
+    it('does not escape HTML when using the `html` option without a link', async () => {
       const $ = await render('breadcrumbs', examples.html)
+      const $item = $('.govuk-breadcrumbs__list-item:nth-child(2)')
 
-      const $anchor = $('.govuk-breadcrumbs__list-item a').last()
-      equal($anchor.html(), '<em>Section 2</em>')
+      ok($item.eq(0).html().includes('<em>Section 2</em>'))
     })
 
-    it('renders item anchor with attributes', async () => {
+    it('sets any additional attributes on the link based on the `item.attributes` option', async () => {
       const $ = await render('breadcrumbs', examples['item attributes'])
-
       const $breadcrumbLink = $('.govuk-breadcrumbs__link')
+
       equal($breadcrumbLink.attr('data-attribute'), 'my-attribute')
       equal($breadcrumbLink.attr('data-attribute-2'), 'my-attribute-2')
     })
 
-    it('renders with classes', async () => {
+    it('includes additional classes from the `classes` option', async () => {
       const $ = await render('breadcrumbs', examples.classes)
 
       const $component = $('.govuk-breadcrumbs')
       ok($component.hasClass('app-breadcrumbs--custom-modifier'))
     })
 
-    it('renders with attributes', async () => {
-      const $ = await render('breadcrumbs', examples.attributes)
-
-      const $component = $('.govuk-breadcrumbs')
-      equal($component.attr('id'), 'my-navigation')
-      equal($component.attr('role'), 'navigation')
-    })
-
-    it('renders item as collapse on mobile if specified', async () => {
+    it('adds the `--collapse-on-mobile` modifier class if `collapseOnMobile` is true', async () => {
       const $ = await render('breadcrumbs', examples['with collapse on mobile'])
 
       const $component = $('.govuk-breadcrumbs')
       ok($component.hasClass('govuk-breadcrumbs--collapse-on-mobile'))
     })
 
-    it('renders with inverted colours if specified', async () => {
-      const $ = await render('breadcrumbs', examples.inverse)
+    it('sets any additional attributes based on the `attributes` option', async () => {
+      const $ = await render('breadcrumbs', examples.attributes)
 
       const $component = $('.govuk-breadcrumbs')
-      ok($component.hasClass('govuk-breadcrumbs--inverse'))
+      equal($component.attr('id'), 'my-navigation')
+      equal($component.attr('data-foo'), 'bar')
+    })
+
+    it('renders with a custom aria-label', async () => {
+      const $ = await render('breadcrumbs', examples['custom label'])
+
+      const $component = $('.govuk-breadcrumbs')
+      equal($component.attr('aria-label'), 'Briwsion bara')
     })
   })
 })
