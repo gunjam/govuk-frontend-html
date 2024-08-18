@@ -34,8 +34,10 @@
     "@biomejs/biome": "^1.8.3",
     "borp": "^0.15.0",
     "cheerio": "^1.0.0-rc.12",
+    "dom-accessibility-api": "^0.7.0",
     "govuk-frontend": "5.4.1",
     "html-validate": "^8.20.1",
+    "jsdom": "^24.1.1",
     "mitata": "^0.1.11",
     "nunjucks": "^3.2.4"
   },

@@ -41,6 +41,43 @@ function sliceOutCallerTest(test) {
  */
 function convertTest(testJs) {
   const converted = sliceOutCallerTest(testJs)
+    // JSDOM test replacements
+    .replaceAll(/document\.body\.innerHTML = render/g, 'document.body.innerHTML = await renderHtml')
+    .replaceAll(/expect\((.*)\)\.toBeNull\(\)/g, 'equal($1, null)')
+    .replaceAll(
+      /expect\((.*)\)\.toHaveAttribute\(\n*\s*(.*),\n*\s*(.*)\n*\s*\)/g,
+      'equal($1.getAttribute($2), $3)'
+    )
+    .replaceAll(
+      /expect\((.*)\)\.not\.toHaveAttribute\((.*)\)/g,
+      'equal($1.hasAttribute($2), false)'
+    )
+    .replaceAll(/expect\((.*)\)\.toContainElement\((.*)\)/g, 'ok($1.contains($2))')
+    .replaceAll(/expect\((.*)\)\.toHaveValue\((.*)\)/g, 'equal($1.value, $2)')
+    .replaceAll(/expect\((.*)\)\.toBeDisabled\(\)/g, 'ok($1.disabled)')
+    .replaceAll(/expect\((.*)\)\.toBeInTheDocument\(\)/g, 'ok($1.contains($1))')
+    .replaceAll(/expect\((.*)\)\.toHaveAccessibleDescription\(/gm, 'hasAccessibleDescription($1, ')
+    .replaceAll(/expect\((.*)\)\.toHaveAccessibleName\(/gm, 'hasAccessibleName($1, ')
+    .replaceAll(
+      /expect\((.*)\)\.toHaveTextContent\((?:\n|\s)*(.*)(?:\n|\s)*\)/g,
+      'equal($1.textContent.trim(), $2)'
+    )
+    .replaceAll(
+      /expect\((.*)\)\.toHaveClass\(\n*\s*(.*)\n*\s*\)/g,
+      'ok([...$1.classList].includes($2))'
+    )
+    .replaceAll(
+      /expect\((.*)\)\.toContainHTML\((?:\n|\s)*(.*)(?:\n|\s)*\)/g,
+      'ok($1.innerHTML.includes($2))'
+    )
+    .replaceAll(
+      /describe\.each\(\[([^\]]*)\]\)\((?:\n|\s)*'([^,]*)',(?:\n|\s)*\((.*)\) => {\n([^\0]*)\n\s+}\n(?:\n|\s)*\)/gm,
+      (_, p1, p2, p3, p4) => {
+        const name = p2.replace(/"\$([^"]+)"/, '${$1}')
+        return `for (const ${p3} of [${p1}]) {\n      describe(\`${name}\`, () => {\n${p4}\n      })\n    }`
+      }
+    )
+    // cheerio
     .replaceAll('beforeAll', 'before')
     .replaceAll('before(() => {', 'before(async () => {')
     .replaceAll('= render(', '= await render(')
@@ -73,8 +110,13 @@ function convertTest(testJs) {
     )
 
   const assertions = []
-  const helpers = ['getExamples', 'render']
+  const helpers = ['getExamples']
 
+  if (/renderHtml/.test(converted)) {
+    helpers.push('renderHtml', 'document')
+  } else {
+    helpers.push('render')
+  }
   if (/deepEqual\(/.test(converted)) {
     assertions.push('deepEqual')
   }
@@ -90,6 +132,9 @@ function convertTest(testJs) {
   if (/htmlWithClassName/.test(converted)) {
     helpers.push('htmlWithClassName')
   }
+  if (/hasAccessibleDescription/.test(converted)) {
+    helpers.push('hasAccessibleDescription')
+  }
 
   helpers.sort()
 
@@ -98,6 +143,7 @@ import { before, describe, it } from 'node:test'
 import { ${helpers.join(', ')} } from '../../helper.js'`
 
   return converted
+    .replace(`const { getExamples, render } = require('@govuk-frontend/lib/components')`, imports)
     .replace(`const { render } = require('@govuk-frontend/helpers/nunjucks')`, imports)
     .replace(`const { getExamples } = require('@govuk-frontend/lib/components')\n`, '')
     .replace(`const { htmlWithClassName } = require('@govuk-frontend/helpers/tests')\n`, '')
@@ -111,9 +157,12 @@ import { ${helpers.join(', ')} } from '../../helper.js'`
  */
 async function fetchTest(component) {
   const version = await getFrontendVersion()
-  const url = `https://raw.githubusercontent.com/alphagov/govuk-frontend/${version}/packages/govuk-frontend/src/govuk/components/${component}/template.test.js`
-  const res = await fetch(url)
-  return res.text()
+  const url = `https://raw.githubusercontent.com/alphagov/govuk-frontend/${version}/packages/govuk-frontend/src/govuk/components/${component}`
+  const [res, resJsdom] = await Promise.all([
+    fetch(join(url, '/template.test.js')),
+    fetch(join(url, '/template.jsdom.test.js'))
+  ])
+  return res.ok ? res.text() : resJsdom.text()
 }
 
 /**

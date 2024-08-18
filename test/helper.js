@@ -1,6 +1,19 @@
+import { equal } from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import * as cheerio from 'cheerio'
+import { computeAccessibleDescription, computeAccessibleName } from 'dom-accessibility-api'
+import { JSDOM } from 'jsdom'
+
+const { window } = new JSDOM(`<!DOCTYPE html>
+<html>
+  <head></head>
+  <body></body>
+</html`)
+
+const { document } = window
+
+export { window, document }
 
 export async function getExamples(component) {
   const path = join(
@@ -30,6 +43,11 @@ export async function render(name, config) {
   return cheerio.load(html)
 }
 
+export async function renderHtml(name, config) {
+  const component = await import(`../components/${name}/${name}.js`)
+  return component.default(config.fixture.options)
+}
+
 /**
  * Get the raw HTML representation of a component, and remove any other
  * child elements that do not match the component.
@@ -47,4 +65,14 @@ export function htmlWithClassName($, className) {
   // Remove all other elements that do not match this component
   $component.find(`[class]:not([class^=${classSelector}])`).remove()
   return $.html($component)
+}
+
+export function hasAccessibleDescription($component, expectedAccessibleDescription) {
+  const actualAccessibleDescription = computeAccessibleDescription($component)
+  equal(actualAccessibleDescription, expectedAccessibleDescription)
+}
+
+export function hasAccessibleName($component, expectedAccessibleName) {
+  const actualAccessibleName = computeAccessibleName($component)
+  equal(actualAccessibleName, expectedAccessibleName)
 }
