@@ -1,7 +1,7 @@
 import { deepEqual, equal, ok } from 'node:assert/strict'
 import crypto from 'node:crypto'
 import { describe, it } from 'node:test'
-import cheerio from 'cheerio'
+import * as cheerio from 'cheerio'
 import { HtmlValidate } from 'html-validate/node'
 import govukTemplate from '../template.js'
 
