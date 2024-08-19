@@ -55,31 +55,33 @@ export default function govukTaskList(params) {
   let index = 0
 
   for (const item of params.items) {
-    index++
-    const hintId = `${idPrefix}-${index}-hint`
-    const statusId = `${idPrefix}-${index}-status`
+    if (item) {
+      index++
+      const hintId = `${idPrefix}-${index}-hint`
+      const statusId = `${idPrefix}-${index}-status`
 
-    items += `<li class="govuk-task-list__item${item.href ? ' govuk-task-list__item--with-link' : ''}${item.classes ? html` ${item.classes}` : ''}">
-      <div class="govuk-task-list__name-and-hint">
-        ${item.href
-        ? `<a class="govuk-link govuk-task-list__link${item.title?.classes ? html` ${item.title.classes}` : ''}" href="${html`${item.href}`}" aria-describedby="${item.hint ? `${hintId} ` : ''}${statusId}">
-        ${item.title?.html ?? html` ${item.title?.text}`}
-        </a>`
-        : `<div${item.title?.classes ? html` class="${item.title.classes}"` : ''}>
+      items += `<li class="govuk-task-list__item${item.href ? ' govuk-task-list__item--with-link' : ''}${item.classes ? html` ${item.classes}` : ''}">
+        <div class="govuk-task-list__name-and-hint">
+          ${item.href
+          ? `<a class="govuk-link govuk-task-list__link${item.title?.classes ? html` ${item.title.classes}` : ''}" href="${html`${item.href}`}" aria-describedby="${item.hint ? `${hintId} ` : ''}${statusId}">
           ${item.title?.html ?? html` ${item.title?.text}`}
-        </div>`
-      }
-        ${item.hint
-        ? `<div id="${hintId}" class="govuk-task-list__hint">
-          ${item.hint?.html ?? html` ${item.hint?.text}`}
-        </div>`
-        : ''
-      }
-      </div>
-      <div class="govuk-task-list__status${item.status?.classes ? html` ${item.status.classes}` : ''}" id="${statusId}">
-        ${item.status?.tag ? govukTag(item.status.tag) : item.status?.html ?? html` ${item.status?.text}`}
-      </div>
-    </li>`
+          </a>`
+          : `<div${item.title?.classes ? html` class="${item.title.classes}"` : ''}>
+            ${item.title?.html ?? html` ${item.title?.text}`}
+          </div>`
+        }
+          ${item.hint
+          ? `<div id="${hintId}" class="govuk-task-list__hint">
+            ${item.hint?.html ?? html` ${item.hint?.text}`}
+          </div>`
+          : ''
+        }
+        </div>
+        <div class="govuk-task-list__status${item.status?.classes ? html` ${item.status.classes}` : ''}" id="${statusId}">
+          ${item.status?.tag ? govukTag(item.status.tag) : item.status?.html ?? html` ${item.status?.text}`}
+        </div>
+      </li>`
+    }
   }
 
   return `<ul class="govuk-task-list${params.classes ? html` ${params.classes}` : ''}"${govukAttributes(params.attributes)}>

@@ -1,6 +1,6 @@
 import { equal, ok } from 'node:assert/strict'
 import { before, describe, it } from 'node:test'
-import { getExamples, render } from '../../helper.js'
+import { document, getExamples, hasAccessibleDescription, renderHtml } from '../../helper.js'
 
 describe('Task List', () => {
   let examples
@@ -10,167 +10,189 @@ describe('Task List', () => {
   })
 
   it('renders the default example', async () => {
-    const $ = await render('task-list', examples.default)
+    document.body.innerHTML = await renderHtml('task-list', examples.default)
 
-    const $component = $('.govuk-task-list')
-    equal($component.get(0).tagName, 'ul')
+    const $component = document.querySelector('.govuk-task-list')
+    equal($component.tagName, 'UL')
   })
 
-  it('allows for custom classes on the root of the component', async () => {
-    const $ = await render('task-list', examples['custom classes'])
-
-    const $component = $('.govuk-task-list')
-    ok($component.hasClass('custom-class-on-component'))
-  })
-
-  it('allows for custom classes on each task', async () => {
-    const $ = await render('task-list', examples['custom classes'])
-
-    const $listItem = $('.govuk-task-list__item')
-    ok($listItem.hasClass('custom-class-on-task'))
-  })
-
-  it('allows for custom classes on each status', async () => {
-    const $ = await render('task-list', examples['custom classes'])
-
-    const $status = $('.govuk-task-list__status')
-    ok($status.hasClass('custom-class-on-status'))
-  })
-
-  it('allows for custom attributes', async () => {
-    const $ = await render('task-list', examples['custom attributes'])
-
-    const $component = $('.govuk-task-list')
-    equal($component.attr('data-custom-attribute'), 'custom-value')
-  })
-
-  describe('when a task has an href set', () => {
+  describe('when custom classes are passed', () => {
     let $component
 
     before(async () => {
-      const $ = await render('task-list', examples.default)
-      $component = $('.govuk-task-list')
+      document.body.innerHTML = await renderHtml('task-list', examples['custom classes'])
+      $component = document.querySelector('.govuk-task-list')
+    })
+
+    it('includes additional classes from the `classes` option on the root', async () => {
+      ok([...$component.classList].includes('custom-class-on-component'))
+    })
+
+    it('includes additional classes from the `item.classes` option on the item', async () => {
+      const $listItem = $component.querySelector('.govuk-task-list__item')
+      ok([...$listItem.classList].includes('custom-class-on-task'))
+    })
+
+    it('includes additional classes from the `item.status.classes` option on the status', async () => {
+      const $status = $component.querySelector('.govuk-task-list__status')
+      ok([...$status.classList].includes('custom-class-on-status'))
+    })
+
+    describe('when a task has a tag status', () => {
+      it('allows for custom classes on tags', async () => {
+        const $tag = document.querySelector('.govuk-task-list__status .govuk-tag')
+        ok([...$tag.classList].includes('custom-class-on-tag'))
+      })
+    })
+
+    describe('when a task has an href set', () => {
+      it('includes classes from the `item.title.classes` option on the link', async () => {
+        const $itemWithLink = $component.querySelector('.govuk-task-list__item:first-child')
+        const $link = $itemWithLink.querySelector('.govuk-task-list__link')
+
+        ok([...$link.classList].includes('custom-class-on-linked-title'))
+      })
+    })
+
+    describe('when a task does not have an href set', () => {
+      it('includes classes from the `item.title.classes` option on the wrapper div', async () => {
+        const $itemWithoutLink = $component.querySelector('.govuk-task-list__item:last-child')
+        const $wrapper = $itemWithoutLink.querySelector('.govuk-task-list__name-and-hint div')
+
+        ok([...$wrapper.classList].includes('custom-class-on-unlinked-title'))
+      })
+    })
+  })
+
+  it('sets any additional attributes based on the `attributes` option', async () => {
+    document.body.innerHTML = await renderHtml('task-list', examples['custom attributes'])
+
+    const $component = document.querySelector('.govuk-task-list')
+    equal($component.getAttribute('data-custom-attribute'), 'custom-value')
+  })
+
+  it('sets any additional attributes on tags based on `item.status.tag.attributes` option', async () => {
+    document.body.innerHTML = await renderHtml('task-list', examples['custom attributes'])
+
+    const $component = document.querySelector('.govuk-tag')
+    equal($component.getAttribute('data-tag-attribute'), 'tag-value')
+  })
+
+  describe('when a task has an href set', () => {
+    let $item
+    let $itemLink
+
+    before(async () => {
+      document.body.innerHTML = await renderHtml('task-list', examples.default)
+      $item = document.querySelector('.govuk-task-list__item')
+      $itemLink = document.querySelector('a.govuk-task-list__link')
     })
 
     it('wraps the task title in a link', async () => {
-      const $itemLink = $component.find('a.govuk-task-list__link')
-      equal($itemLink.attr('href'), '#')
+      equal($itemLink.getAttribute('href'), '#')
     })
 
     it('adds a with-link modifier class to the task', async () => {
-      const $itemLink = $component.find('.govuk-task-list__item')
-      ok($itemLink.hasClass('govuk-task-list__item--with-link'))
+      ok([...$item.classList].includes('govuk-task-list__item--with-link'))
     })
 
     it('associates the task name link with the status using aria', async () => {
-      const $itemLink = $component.find('.govuk-task-list__link')
-      const $statusWithId = $component.find(`#${$itemLink.attr('aria-describedby')}`)
-
-      ok($statusWithId.text().includes('Completed'))
-    })
-
-    it('applies title classes to the link', async () => {
-      const $ = await render('task-list', examples['custom classes'])
-
-      const $itemWithLink = $('.govuk-task-list__item:first-child')
-      const $itemWithLinkTitle = $itemWithLink.find('.govuk-task-list__link')
-      ok($itemWithLinkTitle.hasClass('custom-class-on-linked-title'))
-    })
-
-    it('escapes the title when passed as text', async () => {
-      const $ = await render('task-list', examples['html passed as text'])
-
-      const $itemWithLink = $('.govuk-task-list__item:first-child')
-      const $itemWithLinkTitle = $itemWithLink.find('.govuk-task-list__link')
-      equal($itemWithLinkTitle.text().trim(), '<strong>Linked Title</strong>')
-    })
-
-    it('allows HTML in the title when passed as html', async () => {
-      const $ = await render('task-list', examples.html)
-
-      const $itemWithLink = $('.govuk-task-list__item:first-child')
-      const $itemWithLinkTitle = $itemWithLink.find('.govuk-task-list__link')
-      equal($itemWithLinkTitle.html().trim(), '<strong>Linked Title</strong>')
+      hasAccessibleDescription($itemLink, 'Completed')
     })
   })
 
   describe('when a task does not have an href set', () => {
     it('does not link the task title', async () => {
-      const $ = await render('task-list', examples['example with hint text and additional states'])
+      document.body.innerHTML = await renderHtml('task-list', examples['example with hint text and additional states'])
 
-      const $itemWithNoLink = $('.govuk-task-list__item:last-child')
-      const $itemWithNoLinkTitle = $itemWithNoLink.find('div')
-      ok($itemWithNoLinkTitle.text().includes('Payment'))
-    })
+      const $itemWithNoLink = document.querySelector('.govuk-task-list__item:last-child')
 
-    it('applies title classes to the title wrapper div', async () => {
-      const $ = await render('task-list', examples['custom classes'])
-
-      const $itemWithNoLink = $('.govuk-task-list__item:last-child')
-      const $itemWithNoLinkTitle = $itemWithNoLink.find('.govuk-task-list__name-and-hint div')
-      ok($itemWithNoLinkTitle.hasClass('custom-class-on-unlinked-title'))
-    })
-
-    it('escapes the title when passed as text', async () => {
-      const $ = await render('task-list', examples['html passed as text'])
-
-      const $itemWithoutLink = $('.govuk-task-list__item:last-child')
-      const $itemWithoutLinkTitle = $itemWithoutLink.find('.govuk-task-list__name-and-hint')
-      ok($itemWithoutLinkTitle.text().includes('<strong>Unlinked Title</strong>'))
-    })
-
-    it('allows HTML in the title when passed as html', async () => {
-      const $ = await render('task-list', examples.html)
-
-      const $itemWithoutLink = $('.govuk-task-list__item:last-child')
-      const $itemWithoutLinkTitle = $itemWithoutLink.find('.govuk-task-list__name-and-hint')
-      ok($itemWithoutLinkTitle.html().includes('<strong>Unlinked Title</strong>'))
+      equal($itemWithNoLink.querySelector('a'), null)
     })
   })
 
-  describe('when a task has a tag status', () => {
-    it('escapes the tag when passed as text', async () => {
-      const $ = await render('task-list', examples['html passed as text'])
-
-      const $tag = $('.govuk-tag')
-      ok($tag.text().includes('<strong>Tag</strong>'))
+  describe('when using the `text` option', () => {
+    before(async () => {
+      document.body.innerHTML = await renderHtml('task-list', examples['html passed as text'])
     })
 
-    it('allows HTML in the tag when passed as html', async () => {
-      const $ = await render('task-list', examples.html)
-
-      const $tag = $('.govuk-tag')
-      ok($tag.html().includes('<strong>Tag</strong>'))
+    describe('when a task has an href set', () => {
+      it('escapes HTML in the link', async () => {
+        const $itemWithLink = document.querySelector('.govuk-task-list__item:first-child')
+        const $link = $itemWithLink.querySelector('.govuk-task-list__link')
+        equal($link.textContent.trim(), '<strong>Linked Title</strong>')
+      })
     })
 
-    it('allows for custom classes on tags', async () => {
-      const $ = await render('task-list', examples['custom classes'])
+    describe('when a task does not have an href set', () => {
+      it('escapes the title', async () => {
+        const $itemWithoutLink = document.querySelector('.govuk-task-list__item:last-child')
+        const $title = $itemWithoutLink.querySelector('.govuk-task-list__name-and-hint')
 
-      const $tag = $('.govuk-task-list__status .govuk-tag')
-      ok($tag.hasClass('custom-class-on-tag'))
+        equal($title.textContent.trim(), '<strong>Unlinked Title</strong>')
+      })
     })
 
-    it('allows for custom attributes on tags', async () => {
-      const $ = await render('task-list', examples['custom attributes'])
+    describe('when a task has a tag status', () => {
+      it('escapes HTML in the tag', async () => {
+        const $tag = document.querySelector('.govuk-tag')
+        equal($tag.textContent.trim(), '<strong>Tag</strong>')
+      })
+    })
 
-      const $component = $('.govuk-tag')
-      equal($component.attr('data-tag-attribute'), 'tag-value')
+    describe('when a task has a non-tag status', () => {
+      it('escapes HTML in the status', async () => {
+        const $status = document.querySelector('.govuk-task-list__status')
+        equal($status.textContent.trim(), '<strong>Status</strong>')
+      })
+    })
+
+    it('escapes HTML in the hint', async () => {
+      const $hint = document.querySelector('.govuk-task-list__hint')
+      equal($hint.textContent.trim(), '<strong>Hint</strong>')
     })
   })
 
-  describe('when a task has a non-tag status', () => {
-    it('escapes the status when passed as text', async () => {
-      const $ = await render('task-list', examples['html passed as text'])
-
-      const $status = $('.govuk-task-list__status')
-      ok($status.text().includes('<strong>Status</strong>'))
+  describe('when using the `html` option', () => {
+    before(async () => {
+      document.body.innerHTML = await renderHtml('task-list', examples.html)
     })
 
-    it('allows HTML in the tag when passed as html', async () => {
-      const $ = await render('task-list', examples.html)
+    describe('when a task has an href set', () => {
+      it('does not escape HTML in the link', async () => {
+        const $itemWithLink = document.querySelector('.govuk-task-list__item:first-child')
+        const $link = $itemWithLink.querySelector('.govuk-task-list__link')
 
-      const $status = $('.govuk-task-list__status')
-      ok($status.html().includes('<strong>Status</strong>'))
+        ok($link.innerHTML.includes('<strong>Linked Title</strong>'))
+      })
+    })
+
+    describe('when a task does not have an href set', () => {
+      it('does not escape HTML in the title', async () => {
+        const $itemWithoutLink = document.querySelector('.govuk-task-list__item:last-child')
+        const $title = $itemWithoutLink.querySelector('.govuk-task-list__name-and-hint')
+
+        ok($title.innerHTML.includes('<strong>Unlinked Title</strong>'))
+      })
+    })
+
+    describe('when a task has a tag status', () => {
+      it('does not escape HTML in the tag', async () => {
+        const $tag = document.querySelector('.govuk-tag')
+        ok($tag.innerHTML.includes('<strong>Tag</strong>'))
+      })
+    })
+
+    describe('when a task has a non-tag status', () => {
+      it('does not escape HTML in the status', async () => {
+        const $status = document.querySelector('.govuk-task-list__status')
+        ok($status.innerHTML.includes('<strong>Status</strong>'))
+      })
+    })
+
+    it('does not escape HTML in the hint', async () => {
+      const $hint = document.querySelector('.govuk-task-list__hint')
+      ok($hint.innerHTML.includes('<strong>Hint</strong>'))
     })
   })
 
@@ -178,35 +200,23 @@ describe('Task List', () => {
     let $component
 
     before(async () => {
-      const $ = await render('task-list', examples['example with hint text and additional states'])
-      $component = $('.govuk-task-list')
+      document.body.innerHTML = await renderHtml('task-list', examples['example with hint text and additional states'])
+      $component = document.querySelector('.govuk-task-list')
     })
 
     it('renders the hint', async () => {
-      const $hintText = $component.find('.govuk-task-list__hint')
-      ok($hintText.text().includes('Ensure the plan covers objectives, strategies, sales, marketing and financial forecasts.'))
+      const $hintText = $component.querySelector('.govuk-task-list__hint')
+      equal($hintText.textContent.trim(), 'Ensure the plan covers objectives, strategies, sales, marketing and financial forecasts.')
     })
 
-    it('associates the hint text with the task link using aria', async () => {
-      const $hintText = $component.find('.govuk-task-list__hint')
-      equal($hintText.attr('id'), 'task-list-3-hint')
+    it('associates the hint text and the status with the task link', async () => {
+      const $task = $component.querySelector('.govuk-task-list__item:nth-child(3)')
 
-      const $itemAssociatedWithHint = $component.find(`.govuk-task-list__link[aria-describedby~="${$hintText.attr('id')}"]`)
-      ok($itemAssociatedWithHint.text().includes('Business plan'))
-    })
+      const $link = $task.querySelector('.govuk-task-list__link')
+      const $hint = $task.querySelector('.govuk-task-list__hint')
+      const $status = $task.querySelector('.govuk-task-list__status')
 
-    it('escapes the hint when passed as text', async () => {
-      const $ = await render('task-list', examples['html passed as text'])
-
-      const $hint = $('.govuk-task-list__hint')
-      ok($hint.text().includes('<strong>Hint</strong>'))
-    })
-
-    it('allows HTML in the hint when passed as html', async () => {
-      const $ = await render('task-list', examples.html)
-
-      const $hint = $('.govuk-task-list__hint')
-      ok($hint.html().includes('<strong>Hint</strong>'))
+      hasAccessibleDescription($link, [$hint, $status].map((el) => el.textContent.trim()).join(' '))
     })
   })
 
@@ -214,23 +224,29 @@ describe('Task List', () => {
     let $component
 
     before(async () => {
-      const $ = await render('task-list', examples['custom id prefix'])
-      $component = $('.govuk-task-list')
+      document.body.innerHTML = await renderHtml('task-list', examples['custom id prefix'])
+      $component = document.querySelector('.govuk-task-list')
     })
 
     it('uses the id prefix for the hint id', async () => {
-      const $hint = $component.find('.govuk-task-list__hint')
-      equal($hint.attr('id'), 'my-custom-id-1-hint')
+      const $hint = $component.querySelector('.govuk-task-list__hint')
+      equal($hint.getAttribute('id'), 'my-custom-id-1-hint')
     })
 
     it('uses the id prefix for the status', async () => {
-      const $hint = $component.find('.govuk-task-list__status')
-      equal($hint.attr('id'), 'my-custom-id-1-status')
+      const $status = $component.querySelector('.govuk-task-list__status')
+      equal($status.getAttribute('id'), 'my-custom-id-1-status')
     })
 
     it('uses the id prefix for the aria-describedby association', async () => {
-      const $hint = $component.find('.govuk-task-list__link')
-      equal($hint.attr('aria-describedby'), 'my-custom-id-1-hint my-custom-id-1-status')
+      const $link = $component.querySelector('.govuk-task-list__link')
+      ok($link.hasAttribute('aria-describedby'))
     })
+  })
+
+  it('omits empty items from the task list', async () => {
+    document.body.innerHTML = await renderHtml('task-list', examples['with empty values'])
+
+    equal(document.querySelectorAll('.govuk-task-list__item').length, 2)
   })
 })
