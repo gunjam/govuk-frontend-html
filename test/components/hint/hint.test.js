@@ -1,6 +1,6 @@
 import { equal, ok } from 'node:assert/strict'
 import { before, describe, it } from 'node:test'
-import { getExamples, render } from '../../helper.js'
+import { document, getExamples, renderHtml } from '../../helper.js'
 
 describe('Hint', () => {
   let examples
@@ -9,52 +9,52 @@ describe('Hint', () => {
     examples = await getExamples('hint')
   })
 
-  describe('by default', () => {
-    it('renders with text', async () => {
-      const $ = await render('hint', examples.default)
+  it('contains the hint text', async () => {
+    document.body.innerHTML = await renderHtml('hint', examples.default)
 
-      const content = $('.govuk-hint').text()
-      equal(content, "It's on your National Insurance card, benefit letter, payslip or P60.\nFor example, 'QQ 12 34 56 C'.\n")
-    })
+    const $component = document.querySelector('.govuk-hint')
+    equal($component.textContent.trim(), "It's on your National Insurance card, benefit letter, payslip or P60.\nFor example, 'QQ 12 34 56 C'.")
+  })
 
-    it('renders with classes', async () => {
-      const $ = await render('hint', examples.classes)
+  it('includes additional classes from the `classes` option', async () => {
+    document.body.innerHTML = await renderHtml('hint', examples.classes)
 
-      const $component = $('.govuk-hint')
-      ok($component.hasClass('app-hint--custom-modifier'))
-    })
+    const $component = document.querySelector('.govuk-hint')
+    ok([...$component.classList].includes('app-hint--custom-modifier'))
+  })
 
-    it('renders with id', async () => {
-      const $ = await render('hint', examples.id)
+  it('does not include an `id` attribute if the `id` option is not set', async () => {
+    document.body.innerHTML = await renderHtml('hint', examples.default)
 
-      const $component = $('.govuk-hint')
-      equal($component.attr('id'), 'my-hint')
-    })
+    const $component = document.querySelector('.govuk-hint')
+    equal($component.hasAttribute('id'), false)
+  })
 
-    it('allows text to be passed whilst escaping HTML entities', async () => {
-      const $ = await render('hint', examples['html as text'])
+  it('sets the `id` attribute based on the `id` option', async () => {
+    document.body.innerHTML = await renderHtml('hint', examples.id)
 
-      const content = $('.govuk-hint').html().trim()
-      equal(content, 'Unexpected &lt;strong&gt;bold text&lt;/strong&gt; in body')
-    })
+    const $component = document.querySelector('.govuk-hint')
+    equal($component.getAttribute('id'), 'my-hint')
+  })
 
-    it('allows HTML to be passed un-escaped', async () => {
-      const $ = await render('hint', examples['with html'])
+  it('escapes HTML when using the `text` option', async () => {
+    document.body.innerHTML = await renderHtml('hint', examples['html as text'])
 
-      const content = $('.govuk-hint').html().trim()
-      equal(
-        content,
-        `\
-It's on your National Insurance card, benefit letter, payslip or <a class="govuk-link" href="#">P60</a>.
-For example, 'QQ 12 34 56 C'.`
-      )
-    })
+    const $component = document.querySelector('.govuk-hint')
+    equal($component.textContent.trim(), 'Unexpected <strong>bold text</strong> in body')
+  })
 
-    it('renders with attributes', async () => {
-      const $ = await render('hint', examples.attributes)
+  it('does not escape HTML when using the `html` option', async () => {
+    document.body.innerHTML = await renderHtml('hint', examples['with html'])
 
-      const $component = $('.govuk-hint')
-      equal($component.attr('data-attribute'), 'my data value')
-    })
+    const $component = document.querySelector('.govuk-hint')
+    ok($component.innerHTML.includes('It\'s on your National Insurance card, benefit letter, payslip or <a class="govuk-link" href="#">P60</a>.\nFor example, \'QQ 12 34 56 C\'.'))
+  })
+
+  it('sets any additional attributes based on the `attributes` option', async () => {
+    document.body.innerHTML = await renderHtml('hint', examples.attributes)
+
+    const $component = document.querySelector('.govuk-hint')
+    equal($component.getAttribute('data-attribute'), 'my data value')
   })
 })
