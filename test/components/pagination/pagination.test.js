@@ -12,7 +12,6 @@ describe('Pagination', () => {
   describe('default examples', () => {
     it('renders the correct URLs for each link', async () => {
       const $ = await render('pagination', examples.default)
-
       const $previous = $('.govuk-pagination__prev .govuk-pagination__link')
       const $next = $('.govuk-pagination__next .govuk-pagination__link')
       const $firstNumber = $('.govuk-pagination__item:first-child .govuk-pagination__link')
