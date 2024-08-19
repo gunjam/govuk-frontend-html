@@ -135,12 +135,9 @@ describe('Character count', () => {
       equal(
         htmlWithClassName($, '.govuk-hint'),
         `\
-<div class="govuk-hint " id="with-hint-hint">\
-Don't include personal or financial information, eg your National Insurance number or credit card details.\
-</div>\
-<div class="govuk-hint govuk-character-count__message" id="with-hint-info">\
-You can enter up to 10 characters\
-</div>`
+<div class="govuk-hint " id="with-hint-hint">Don't include personal or financial information, eg your National Insurance number or credit card details.</div>\
+<div class="govuk-hint govuk-character-count__message" id="with-hint-info">You can enter up to 10 characters</div>\
+`
       )
     })
 
@@ -160,7 +157,7 @@ You can enter up to 10 characters\
     it('renders with error message', async () => {
       const $ = await render('character-count', examples['with default value exceeding limit'])
 
-      equal(htmlWithClassName($, '.govuk-error-message'), `<p id="exceeding-characters-error" class="govuk-error-message "> Please do not exceed the maximum allowed limit</p>`)
+      equal(htmlWithClassName($, '.govuk-error-message'), '<p id="exceeding-characters-error" class="govuk-error-message "> Please do not exceed the maximum allowed limit</p>')
     })
 
     it('associates the character-count as "described by" the error message', async () => {
@@ -200,7 +197,7 @@ You can enter up to 10 characters\
     it('renders with label', async () => {
       const $ = await render('character-count', examples.default)
 
-      equal(htmlWithClassName($, '.govuk-label'), `<label class="govuk-label " for="more-detail">Can you provide more detail?</label>`)
+      equal(htmlWithClassName($, '.govuk-label'), '<label class="govuk-label " for="more-detail">Can you provide more detail?</label>')
     })
 
     it('renders label with "for" attribute reffering the character count "id"', async () => {
