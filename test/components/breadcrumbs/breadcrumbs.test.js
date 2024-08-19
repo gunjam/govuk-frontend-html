@@ -1,6 +1,6 @@
 import { equal, ok } from 'node:assert/strict'
 import { before, describe, it } from 'node:test'
-import { getExamples, render } from '../../helper.js'
+import { document, getExamples, renderHtml } from '../../helper.js'
 
 describe('Breadcrumbs', () => {
   let examples
@@ -15,23 +15,23 @@ describe('Breadcrumbs', () => {
     let $listItems
 
     before(async () => {
-      const $ = await render('breadcrumbs', examples.default)
+      document.body.innerHTML = await renderHtml('breadcrumbs', examples.default)
 
-      $component = $('.govuk-breadcrumbs')
-      $list = $('ol.govuk-breadcrumbs__list')
-      $listItems = $('li.govuk-breadcrumbs__list-item')
+      $component = document.querySelector('.govuk-breadcrumbs')
+      $list = document.querySelector('ol.govuk-breadcrumbs__list')
+      $listItems = document.querySelectorAll('li.govuk-breadcrumbs__list-item')
     })
 
     it('renders as a nav element', async () => {
-      equal($component.get(0).tagName.toLowerCase(), 'nav')
+      equal($component.tagName.toLowerCase(), 'nav')
     })
 
     it('renders with default aria-label', async () => {
-      equal($component.attr('aria-label'), 'Breadcrumb')
+      equal($component.getAttribute('aria-label'), 'Breadcrumb')
     })
 
     it('includes an ordered list', async () => {
-      ok($component.find($list))
+      ok($component.contains($list))
     })
 
     it('includes 2 list items within the list', async () => {
@@ -48,15 +48,15 @@ describe('Breadcrumbs', () => {
     ]) {
       describe(`the ${expectedText} breadcrumb`, () => {
         it(`includes the text "${expectedText}"`, async () => {
-          equal($listItems.eq(index).eq(0).text().trim(), expectedText)
+          equal($listItems[index].textContent.trim(), expectedText)
         })
 
         it('includes a link with the class govuk-breadcrumbs__link', async () => {
-          ok($listItems.eq(index).find('a').hasClass('govuk-breadcrumbs__link'))
+          ok([...$listItems[index].querySelector('a').classList].includes('govuk-breadcrumbs__link'))
         })
 
         it(`includes a link with the href "${expectedHref}"`, async () => {
-          equal($listItems.eq(index).find('a').attr('href'), expectedHref)
+          equal($listItems[index].querySelector('a').getAttribute('href'), expectedHref)
         })
       })
     }
@@ -66,88 +66,88 @@ describe('Breadcrumbs', () => {
     let $lastItem
 
     before(async () => {
-      const $ = await render('breadcrumbs', examples['with last breadcrumb as current page'])
+      document.body.innerHTML = await renderHtml('breadcrumbs', examples['with last breadcrumb as current page'])
 
-      $lastItem = $('.govuk-breadcrumbs__list-item:last-child')
+      $lastItem = document.querySelector('.govuk-breadcrumbs__list-item:last-child')
     })
 
     it('includes the current page as the last list item', async () => {
-      equal($lastItem.eq(0).text().trim(), 'Travel abroad')
+      equal($lastItem.textContent.trim(), 'Travel abroad')
     })
 
     it('does not link the last list item', async () => {
-      equal($lastItem.find('a').length, 0)
+      equal($lastItem.querySelector('a'), null)
     })
 
     it('sets the aria-current attribute to "page"', async () => {
-      equal($lastItem.attr('aria-current'), 'page')
+      equal($lastItem.getAttribute('aria-current'), 'page')
     })
   })
 
   describe('custom options', () => {
     it('escapes HTML when using the `text` option', async () => {
-      const $ = await render('breadcrumbs', examples['html as text'])
-      const $item = $('.govuk-breadcrumbs__list-item')
+      document.body.innerHTML = await renderHtml('breadcrumbs', examples['html as text'])
+      const $item = document.querySelector('.govuk-breadcrumbs__list-item')
 
-      equal($item.eq(0).text().trim(), '<span>Section 1</span>')
+      equal($item.textContent.trim(), '<span>Section 1</span>')
     })
 
     it('escapes HTML when using the `text` option without a link', async () => {
-      const $ = await render('breadcrumbs', examples['html as text'])
-      const $item = $('.govuk-breadcrumbs__list-item:nth-child(2)')
+      document.body.innerHTML = await renderHtml('breadcrumbs', examples['html as text'])
+      const $item = document.querySelector('.govuk-breadcrumbs__list-item:nth-child(2)')
 
-      equal($item.eq(0).text().trim(), '<span>Section 2</span>')
+      equal($item.textContent.trim(), '<span>Section 2</span>')
     })
 
     it('does not escape HTML when using the `html` option', async () => {
-      const $ = await render('breadcrumbs', examples.html)
-      const $item = $('.govuk-breadcrumbs__list-item')
+      document.body.innerHTML = await renderHtml('breadcrumbs', examples.html)
+      const $item = document.querySelector('.govuk-breadcrumbs__list-item')
 
-      ok($item.eq(0).html().includes('<em>Section 1</em>'))
+      ok($item.innerHTML.includes('<em>Section 1</em>'))
     })
 
     it('does not escape HTML when using the `html` option without a link', async () => {
-      const $ = await render('breadcrumbs', examples.html)
-      const $item = $('.govuk-breadcrumbs__list-item:nth-child(2)')
+      document.body.innerHTML = await renderHtml('breadcrumbs', examples.html)
+      const $item = document.querySelector('.govuk-breadcrumbs__list-item:nth-child(2)')
 
-      ok($item.eq(0).html().includes('<em>Section 2</em>'))
+      ok($item.innerHTML.includes('<em>Section 2</em>'))
     })
 
     it('sets any additional attributes on the link based on the `item.attributes` option', async () => {
-      const $ = await render('breadcrumbs', examples['item attributes'])
-      const $breadcrumbLink = $('.govuk-breadcrumbs__link')
+      document.body.innerHTML = await renderHtml('breadcrumbs', examples['item attributes'])
+      const $breadcrumbLink = document.querySelector('.govuk-breadcrumbs__link')
 
-      equal($breadcrumbLink.attr('data-attribute'), 'my-attribute')
-      equal($breadcrumbLink.attr('data-attribute-2'), 'my-attribute-2')
+      equal($breadcrumbLink.getAttribute('data-attribute'), 'my-attribute')
+      equal($breadcrumbLink.getAttribute('data-attribute-2'), 'my-attribute-2')
     })
 
     it('includes additional classes from the `classes` option', async () => {
-      const $ = await render('breadcrumbs', examples.classes)
+      document.body.innerHTML = await renderHtml('breadcrumbs', examples.classes)
 
-      const $component = $('.govuk-breadcrumbs')
-      ok($component.hasClass('app-breadcrumbs--custom-modifier'))
+      const $component = document.querySelector('.govuk-breadcrumbs')
+      ok([...$component.classList].includes('app-breadcrumbs--custom-modifier'))
     })
 
     it('adds the `--collapse-on-mobile` modifier class if `collapseOnMobile` is true', async () => {
-      const $ = await render('breadcrumbs', examples['with collapse on mobile'])
+      document.body.innerHTML = await renderHtml('breadcrumbs', examples['with collapse on mobile'])
 
-      const $component = $('.govuk-breadcrumbs')
-      ok($component.hasClass('govuk-breadcrumbs--collapse-on-mobile'))
+      const $component = document.querySelector('.govuk-breadcrumbs')
+      ok([...$component.classList].includes('govuk-breadcrumbs--collapse-on-mobile'))
     })
 
     it('sets any additional attributes based on the `attributes` option', async () => {
-      const $ = await render('breadcrumbs', examples.attributes)
+      document.body.innerHTML = await renderHtml('breadcrumbs', examples.attributes)
 
-      const $component = $('.govuk-breadcrumbs')
-      equal($component.attr('id'), 'my-navigation')
-      equal($component.attr('data-foo'), 'bar')
+      const $component = document.querySelector('.govuk-breadcrumbs')
+      equal($component.getAttribute('id'), 'my-navigation')
+      equal($component.getAttribute('data-foo'), 'bar')
     })
 
     it('renders with a custom aria-label', async () => {
-      const $ = await render('breadcrumbs', examples['custom label'])
+      document.body.innerHTML = await renderHtml('breadcrumbs', examples['custom label'])
 
-      const $component = $('.govuk-breadcrumbs')
-      equal($component.attr('aria-label'), 'Briwsion bara')
+      const $component = document.querySelector('.govuk-breadcrumbs')
+      equal($component.getAttribute('aria-label'), 'Briwsion bara')
     })
   })
 })
