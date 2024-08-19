@@ -238,8 +238,8 @@ describe('Table', () => {
       ])
     })
 
-    it('can be skipped when falsely', async () => {
-      const $ = await render('table', examples['with falsey items'])
+    it('can be skipped when falsy', async () => {
+      const $ = await render('table', examples['with falsy items'])
 
       const cells = $('.govuk-table')
         .find('tbody tr')
