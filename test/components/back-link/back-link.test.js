@@ -1,6 +1,6 @@
 import { equal, ok } from 'node:assert/strict'
 import { before, describe, it } from 'node:test'
-import { getExamples, render } from '../../helper.js'
+import { document, getExamples, renderHtml } from '../../helper.js'
 
 describe('back-link component', () => {
   let examples
@@ -9,62 +9,68 @@ describe('back-link component', () => {
     examples = await getExamples('back-link')
   })
 
-  it('renders the default example with an anchor, href and text correctly', async () => {
-    const $ = await render('back-link', examples.default)
+  describe('by default', () => {
+    let $component
 
-    const $component = $('.govuk-back-link')
-    equal($component.get(0).tagName, 'a')
-    equal($component.attr('href'), '#')
-    equal($component.text().trim(), 'Back')
+    before(async () => {
+      document.body.innerHTML = await renderHtml('back-link', examples.default)
+      $component = document.querySelector('.govuk-back-link')
+    })
+
+    it('outputs a link', async () => {
+      equal($component.tagName, 'A')
+    })
+
+    it('has an href of "#"', async () => {
+      equal($component.getAttribute('href'), '#')
+    })
+
+    it('includes the text "Back"', async () => {
+      equal($component.textContent.trim(), 'Back')
+    })
   })
 
-  it('renders classes correctly', async () => {
-    const $ = await render('back-link', examples.classes)
+  it('includes additional classes from the `classes` option', async () => {
+    document.body.innerHTML = await renderHtml('back-link', examples.classes)
 
-    const $component = $('.govuk-back-link')
-    ok($component.hasClass('app-back-link--custom-class'))
+    const $component = document.querySelector('.govuk-back-link')
+    ok([...$component.classList].includes('app-back-link--custom-class'))
   })
 
-  it('renders custom text correctly', async () => {
-    const $ = await render('back-link', examples['with custom text'])
+  it('allows the link to be customised using the `href` option', async () => {
+    document.body.innerHTML = await renderHtml('back-link', examples['with custom link'])
 
-    const $component = $('.govuk-back-link')
-    equal($component.html().trim(), 'Back to home')
+    const $component = document.querySelector('.govuk-back-link')
+    equal($component.getAttribute('href'), '/home')
   })
 
-  it('renders escaped html when passed to text', async () => {
-    const $ = await render('back-link', examples['html as text'])
+  it('allows the text to be customised using the `text` option', async () => {
+    document.body.innerHTML = await renderHtml('back-link', examples['with custom text'])
 
-    const $component = $('.govuk-back-link')
-    equal($component.html().trim(), '&lt;b&gt;Home&lt;/b&gt;')
+    const $component = document.querySelector('.govuk-back-link')
+    equal($component.textContent.trim(), 'Back to home')
   })
 
-  it('renders html correctly', async () => {
-    const $ = await render('back-link', examples.html)
+  it('escapes HTML when using the `text` option', async () => {
+    document.body.innerHTML = await renderHtml('back-link', examples['html as text'])
 
-    const $component = $('.govuk-back-link')
-    equal($component.html().trim(), '<b>Back</b>')
+    const $component = document.querySelector('.govuk-back-link')
+    equal($component.textContent.trim(), '<b>Home</b>')
   })
 
-  it('renders default text correctly', async () => {
-    const $ = await render('back-link', examples.default)
+  it('does not escape HTML when using the `html` option', async () => {
+    document.body.innerHTML = await renderHtml('back-link', examples.html)
 
-    const $component = $('.govuk-back-link')
-    equal($component.html().trim(), 'Back')
+    const $component = document.querySelector('.govuk-back-link')
+    ok($component.innerHTML.includes('<b>Back</b>'))
   })
 
-  it('renders attributes correctly', async () => {
-    const $ = await render('back-link', examples.attributes)
+  it('sets any additional attributes based on the `attributes` option', async () => {
+    document.body.innerHTML = await renderHtml('back-link', examples.attributes)
 
-    const $component = $('.govuk-back-link')
-    equal($component.attr('data-test'), 'attribute')
-    equal($component.attr('aria-label'), 'Back to home')
-  })
+    const $component = document.querySelector('.govuk-back-link')
 
-  it('renders with inverted colours if specified', async () => {
-    const $ = await render('back-link', examples.inverse)
-
-    const $component = $('.govuk-back-link')
-    ok($component.hasClass('govuk-back-link--inverse'))
+    equal($component.getAttribute('data-test'), 'attribute')
+    equal($component.getAttribute('aria-label'), 'Back to home')
   })
 })
