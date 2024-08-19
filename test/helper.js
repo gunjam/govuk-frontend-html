@@ -39,13 +39,13 @@ export async function getExamples(component) {
 
 export async function render(name, config) {
   const component = await import(`../components/${name}/${name}.js`)
-  const html = component.default(config.fixture.options)
+  const html = component.default(config.context ?? config.fixture.options)
   return cheerio.load(html)
 }
 
 export async function renderHtml(name, config) {
   const component = await import(`../components/${name}/${name}.js`)
-  return component.default(config.fixture.options)
+  return component.default(config.context ?? config.fixture.options)
 }
 
 /**
