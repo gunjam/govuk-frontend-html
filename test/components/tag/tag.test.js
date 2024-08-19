@@ -1,6 +1,6 @@
 import { equal, ok } from 'node:assert/strict'
 import { before, describe, it } from 'node:test'
-import { getExamples, render } from '../../helper.js'
+import { document, getExamples, renderHtml } from '../../helper.js'
 
 describe('Tag', () => {
   let examples
@@ -9,53 +9,46 @@ describe('Tag', () => {
     examples = await getExamples('tag')
   })
 
-  describe('default example', () => {
-    it('renders the default example with strong element and text', async () => {
-      const $ = await render('tag', examples.default)
+  it('outputs a <strong> element', async () => {
+    document.body.innerHTML = await renderHtml('tag', examples.default)
+    const $component = document.querySelector('.govuk-tag')
 
-      const $component = $('.govuk-tag')
-      equal($component.get(0).tagName, 'strong')
-      ok($component.text().includes('Alpha'))
-    })
-
-    it('renders classes', async () => {
-      const $ = await render('tag', examples.grey)
-
-      const $component = $('.govuk-tag')
-      ok($component.hasClass('govuk-tag--grey'))
-    })
+    equal($component.tagName, 'STRONG')
   })
 
-  describe('custom options', () => {
-    it('renders custom text', async () => {
-      const $ = await render('tag', examples.grey)
+  it('contains the content from the `text` option', async () => {
+    document.body.innerHTML = await renderHtml('tag', examples.default)
+    const $component = document.querySelector('.govuk-tag')
 
-      const $component = $('.govuk-tag')
-      ok($component.html().includes('Grey'))
-    })
-
-    it('renders attributes', async () => {
-      const $ = await render('tag', examples.attributes)
-
-      const $component = $('.govuk-tag')
-      equal($component.attr('data-test'), 'attribute')
-      equal($component.attr('id'), 'my-tag')
-    })
+    equal($component.textContent.trim(), 'Alpha')
   })
 
-  describe('html', () => {
-    it('renders escaped html when passed to text', async () => {
-      const $ = await render('tag', examples['html as text'])
+  it('includes additional classes from the `classes` option', async () => {
+    document.body.innerHTML = await renderHtml('tag', examples.grey)
+    const $component = document.querySelector('.govuk-tag')
 
-      const $component = $('.govuk-tag')
-      ok($component.html().includes('&lt;span&gt;Alpha&lt;/span&gt;'))
-    })
+    ok([...$component.classList].includes('govuk-tag--grey'))
+  })
 
-    it('renders html', async () => {
-      const $ = await render('tag', examples.html)
+  it('escapes HTML when using the `text` option', async () => {
+    document.body.innerHTML = await renderHtml('tag', examples['html as text'])
+    const $component = document.querySelector('.govuk-tag')
 
-      const $component = $('.govuk-tag')
-      ok($component.html().includes('<span>Alpha</span>'))
-    })
+    equal($component.textContent.trim(), '<span>Alpha</span>')
+  })
+
+  it('does not escape HTML when using the `html` option', async () => {
+    document.body.innerHTML = await renderHtml('tag', examples.html)
+    const $component = document.querySelector('.govuk-tag')
+
+    ok($component.innerHTML.includes('<span>Alpha</span>'))
+  })
+
+  it('sets any additional attributes based on the `attributes` option', async () => {
+    document.body.innerHTML = await renderHtml('tag', examples.attributes)
+    const $component = document.querySelector('.govuk-tag')
+
+    equal($component.getAttribute('data-test'), 'attribute')
+    equal($component.getAttribute('id'), 'my-tag')
   })
 })
