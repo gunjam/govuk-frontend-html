@@ -37,32 +37,65 @@ describe('back-link component', () => {
     ok([...$component.classList].includes('app-back-link--custom-class'))
   })
 
-  it('allows the link to be customised using the `href` option', async () => {
-    document.body.innerHTML = await renderHtml('back-link', examples['with custom link'])
+  describe('the `href` option', () => {
+    it('allows the link to be customised', async () => {
+      document.body.innerHTML = await renderHtml('back-link', examples['with custom link'])
 
-    const $component = document.querySelector('.govuk-back-link')
-    equal($component.getAttribute('href'), '/home')
+      const $component = document.querySelector('.govuk-back-link')
+      equal($component.getAttribute('href'), '/home')
+    })
+
+    for (const href of ['', 0, false, null, undefined]) {
+      it(`uses "#" for "${href}"`, async () => {
+        document.body.innerHTML = await renderHtml('back-link', { context: { href } })
+        const $component = document.querySelector('.govuk-back-link')
+
+        equal($component.getAttribute('href'), '#')
+      })
+    }
   })
 
-  it('allows the text to be customised using the `text` option', async () => {
-    document.body.innerHTML = await renderHtml('back-link', examples['with custom text'])
+  describe('the `text` option', () => {
+    it('allows the text to be customised', async () => {
+      document.body.innerHTML = await renderHtml('back-link', examples['with custom text'])
 
-    const $component = document.querySelector('.govuk-back-link')
-    equal($component.textContent.trim(), 'Back to home')
+      const $component = document.querySelector('.govuk-back-link')
+      equal($component.textContent.trim(), 'Back to home')
+    })
+
+    it('escapes HTML', async () => {
+      document.body.innerHTML = await renderHtml('back-link', examples['html as text'])
+
+      const $component = document.querySelector('.govuk-back-link')
+      equal($component.textContent.trim(), '<b>Home</b>')
+    })
+
+    for (const text of ['', 0, false, null, undefined]) {
+      it(`displays "Back" for "${text}"`, async () => {
+        document.body.innerHTML = await renderHtml('back-link', { context: { text } })
+        const $component = document.querySelector('.govuk-back-link')
+
+        equal($component.textContent.trim(), 'Back')
+      })
+    }
   })
 
-  it('escapes HTML when using the `text` option', async () => {
-    document.body.innerHTML = await renderHtml('back-link', examples['html as text'])
+  describe('the `html` option', () => {
+    it('does not escape HTML', async () => {
+      document.body.innerHTML = await renderHtml('back-link', examples.html)
 
-    const $component = document.querySelector('.govuk-back-link')
-    equal($component.textContent.trim(), '<b>Home</b>')
-  })
+      const $component = document.querySelector('.govuk-back-link')
+      ok($component.innerHTML.includes('<b>Back</b>'))
+    })
 
-  it('does not escape HTML when using the `html` option', async () => {
-    document.body.innerHTML = await renderHtml('back-link', examples.html)
+    for (const html of ['', 0, false, null, undefined]) {
+      it(`displays "Back" for "${html}"`, async () => {
+        document.body.innerHTML = await renderHtml('back-link', { context: { html } })
+        const $component = document.querySelector('.govuk-back-link')
 
-    const $component = document.querySelector('.govuk-back-link')
-    ok($component.innerHTML.includes('<b>Back</b>'))
+        equal($component.textContent.trim(), 'Back')
+      })
+    }
   })
 
   it('sets any additional attributes based on the `attributes` option', async () => {

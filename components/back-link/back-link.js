@@ -16,7 +16,7 @@ import govukAttributes from '../../utils/govuk-attributes.js'
  */
 export default function govukBackLink(params) {
   return html`<a href="${params.href || '#'}" class="govuk-back-link ${params.classes}" !${govukAttributes(params.attributes)}>
-    !${params.html ?? (html`${params.text}` || 'Back')}
+    !${params.html || (params.text ? html`${params.text}` : 'Back')}
   </a>`
 }
 
