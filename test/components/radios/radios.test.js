@@ -30,8 +30,8 @@ describe('Radios', () => {
     ok($lastLabel.text().includes('No'))
   })
 
-  it('renders without falsely items', async () => {
-    const $ = await render('radios', examples['with falsey items'])
+  it('renders without falsy items', async () => {
+    const $ = await render('radios', examples['with falsy items'])
 
     const $component = $('.govuk-radios')
     const $items = $component.find('.govuk-radios__item input')
