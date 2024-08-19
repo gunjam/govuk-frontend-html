@@ -82,8 +82,8 @@ describe('Tabs', () => {
       equal($firstPanel.attr('id'), 'past-day')
     })
 
-    it('render without falsey values', async () => {
-      const $ = await render('tabs', examples['with falsey values'])
+    it('render without falsy values', async () => {
+      const $ = await render('tabs', examples['with falsy values'])
 
       const $component = $('.govuk-tabs')
 
@@ -131,6 +131,7 @@ describe('Tabs', () => {
 
     it('render html when passed to content', async () => {
       const $ = await render('tabs', examples.html)
+
       const $component = $('.govuk-tabs')
 
       const $firstPanel = $component.find('.govuk-tabs__panel')
