@@ -41,21 +41,21 @@ describe('Select', () => {
     })
 
     it('includes the value attribute when the value option is an empty string', async () => {
-      const $ = await render('select', examples['with falsey values'])
+      const $ = await render('select', examples['with falsy values'])
 
       const $firstItem = $('.govuk-select option:nth(0)')
       equal($firstItem.attr('value'), '')
     })
 
     it('includes the value attribute when the value option is false', async () => {
-      const $ = await render('select', examples['with falsey values'])
+      const $ = await render('select', examples['with falsy values'])
 
       const $secondItem = $('.govuk-select option:nth(1)')
       equal($secondItem.attr('value'), 'false')
     })
 
     it('includes the value attribute when the value option is 0', async () => {
-      const $ = await render('select', examples['with falsey values'])
+      const $ = await render('select', examples['with falsy values'])
 
       const $thirdItem = $('.govuk-select option:nth(2)')
       equal($thirdItem.attr('value'), '0')
@@ -126,8 +126,8 @@ describe('Select', () => {
       ok($formGroup.hasClass('extra-class'))
     })
 
-    it('renders without falsely items', async () => {
-      const $ = await render('select', examples['with falsey items'])
+    it('renders without falsy items', async () => {
+      const $ = await render('select', examples['with falsy items'])
 
       const $items = $('.govuk-select option')
       equal($items.length, 2)
