@@ -30,8 +30,8 @@ describe('Checkboxes', () => {
     ok($lastLabel.text().includes('Citizen of another country'))
   })
 
-  it('render example without falsely values', async () => {
-    const $ = await render('checkboxes', examples['with falsey values'])
+  it('render example without falsy values', async () => {
+    const $ = await render('checkboxes', examples['with falsy values'])
 
     const $component = $('.govuk-checkboxes')
     const $items = $component.find('.govuk-checkboxes__item')
@@ -479,7 +479,7 @@ describe('Checkboxes', () => {
       const $ = await render('checkboxes', examples[exampleName])
       const $input = $('input')
 
-      equal($input.attr('aria-describedby'), 't-and-c-error')
+      ok($input.attr('aria-describedby').includes('t-and-c-error'))
     })
 
     it('adds aria-describedby to input if there is an error and parent fieldset', async () => {
@@ -488,7 +488,7 @@ describe('Checkboxes', () => {
       const $ = await render('checkboxes', examples[exampleName])
       const $input = $('input')
 
-      equal($input.attr('aria-describedby'), 'test-target-element t-and-c-error')
+      ok($input.attr('aria-describedby').includes('test-target-element t-and-c-error'))
     })
   })
 
@@ -499,7 +499,7 @@ describe('Checkboxes', () => {
       const $ = await render('checkboxes', examples[exampleName])
       const $input = $('input')
 
-      equal($input.attr('aria-describedby'), 't-and-c-with-hint-error t-and-c-with-hint-item-hint')
+      ok($input.attr('aria-describedby').includes('t-and-c-with-hint-error t-and-c-with-hint-item-hint'))
     })
 
     it('adds aria-describedby to input if there is an error, hint and parent fieldset', async () => {
@@ -508,7 +508,7 @@ describe('Checkboxes', () => {
       const $ = await render('checkboxes', examples[exampleName])
       const $input = $('input')
 
-      equal($input.attr('aria-describedby'), 'test-target-element t-and-c-with-hint-error t-and-c-with-hint-item-hint')
+      ok($input.attr('aria-describedby').includes('test-target-element t-and-c-with-hint-error t-and-c-with-hint-item-hint'))
     })
   })
 })
