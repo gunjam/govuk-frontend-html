@@ -48,6 +48,7 @@ function convertTest(testJs) {
       /expect\((.*)\)\.toHaveAttribute\(\n*\s*(.*),\n*\s*(.*)\n*\s*\)/g,
       'equal($1.getAttribute($2), $3)'
     )
+    .replaceAll(/expect\((.*)\)\.toHaveAttribute\(\)/g, 'ok($1.hasAttribute($2))')
     .replaceAll(
       /expect\((.*)\)\.not\.toHaveAttribute\((.*)\)/g,
       'equal($1.hasAttribute($2), false)'
