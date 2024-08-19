@@ -1,7 +1,7 @@
 {
   "name": "govuk-frontend-html",
   "description": "govuk-frontend as plain JS functions that return HTML strings",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "type": "module",
   "homepage": "https://github.com/gunjam/govuk-frontend-html#readme",
