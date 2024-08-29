@@ -1,0 +1,22 @@
+{
+  "description": "Service navigation helps users understand that they’re using your service and lets them navigate around your service.",
+  "example": {
+    "serviceName": "Service name",
+    "serviceUrl": "#",
+    "navigation": [
+      {
+        "href": "#",
+        "text": "Navigation item 1"
+      },
+      {
+        "href": "#",
+        "text": "Navigation item 2",
+        "active": true
+      },
+      {
+        "href": "#",
+        "text": "Navigation item 3"
+      }
+    ]
+  }
+}

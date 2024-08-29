@@ -25,6 +25,7 @@ import govukPasswordInput from './components/password-input/password-input.js'
 import govukPhaseBanner from './components/phase-banner/phase-banner.js'
 import govukRadios from './components/radios/radios.js'
 import govukSelect from './components/select/select.js'
+import govukServiceNavigation from './components/service-navigation/service-navigation.js'
 import govukSkipLink from './components/skip-link/skip-link.js'
 import govukSummaryList from './components/summary-list/summary-list.js'
 import govukTable from './components/table/table.js'
@@ -63,6 +64,7 @@ export {
   govukPhaseBanner,
   govukRadios,
   govukSelect,
+  govukServiceNavigation,
   govukSkipLink,
   govukSummaryList,
   govukTable,

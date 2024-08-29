@@ -35,13 +35,13 @@
     "borp": "^0.17.0",
     "cheerio": "^1.0.0",
     "dom-accessibility-api": "^0.7.0",
-    "govuk-frontend": "5.5.0",
+    "govuk-frontend": "5.6.0",
     "html-validate": "^8.21.0",
-    "jsdom": "^24.1.1",
+    "jsdom": "^25.0.0",
     "mitata": "^0.1.11",
     "nunjucks": "^3.2.4"
   },
   "dependencies": {
-    "ghtml": "^3.0.2"
+    "ghtml": "^3.0.3"
   }
 }
