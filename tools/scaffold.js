@@ -93,6 +93,7 @@ function convertTest(testJs) {
       }
     )
     .replaceAll(/it\(([^S^s]*.+[^S^s]*), \(\) => \{/g, 'it($1, async () => {')
+    .replaceAll(/expect\((.*)\)\.toBeDefined\(\)/g, 'ok($1)')
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toContain\(([^)]+)\)/g, 'ok($1.includes($2))')
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toBeUndefined\(\)/g, 'equal($1, undefined)')
     .replaceAll(/expect\((\n*\s*.*\n*\s*)\)\.toBeTruthy\(\)/g, 'ok($1)')

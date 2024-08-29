@@ -127,6 +127,7 @@ describe('scaffold component cli', async () => {
       '"phase-banner"',
       '"radios"',
       '"select"',
+      '"service-navigation"',
       '"skip-link"',
       '"summary-list"',
       '"table"',
