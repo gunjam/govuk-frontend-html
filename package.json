@@ -25,7 +25,7 @@
     "template.js"
   ],
   "scripts": {
-    "test": "borp --coverage",
+    "test": "borp --coverage 'test/**/*.test.js'",
     "lint": "biome check ."
   },
   "author": "gunjam@gmail.com",
