@@ -31,17 +31,17 @@
   "author": "gunjam@gmail.com",
   "license": "MIT",
   "devDependencies": {
-    "@biomejs/biome": "^1.9.3",
+    "@biomejs/biome": "^1.9.4",
     "borp": "^0.18.0",
     "cheerio": "^1.0.0",
     "dom-accessibility-api": "^0.7.0",
     "govuk-frontend": "5.7.1",
-    "html-validate": "^8.24.1",
+    "html-validate": "^8.24.2",
     "jsdom": "^25.0.1",
     "mitata": "^1.0.10",
     "nunjucks": "^3.2.4"
   },
   "dependencies": {
-    "ghtml": "^3.0.10"
+    "ghtml": "^3.0.13"
   }
 }
